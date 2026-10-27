@@ -443,10 +443,28 @@
       themeToggleIcon.className = isDark ? 'fa-solid fa-sun text-lg' : 'fa-solid fa-moon text-lg';
     });
 
+
+    // 1. Definir la función de carga mediante fetch
+    async function loadAutoloadData() {
+      try {
+        const response = await fetch('./autoload.json');
+        if (!response.ok) {
+          throw new Error(`Error al cargar el archivo JSON: ${response.status}`);
+        }
+        const data = await response.json();
+        initProfile(data);
+      } catch (error) {
+        console.error('No se pudo cargar autoload.json, usando datos por defecto:', error);
+        initProfile(autoloadData); // Fallback a los datos por defecto si falla el fetch
+      }
+    }
+
     // Evento de inicio cuando la ventana se carga
     window.onload = function() {
       initTheme();
-      initProfile(autoloadData);
+      // initProfile(autoloadData);
+      loadAutoloadData();
+      
     };
   </script>
 </body>
