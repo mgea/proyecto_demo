@@ -3,7 +3,7 @@
     "nombre": "Marco González",
     "titulo": "Investigación y Comunicación Multimedia",
     "img": "./img/Marco.png",
-    "tags": [ "creativo", "periodismo", "IA" ,"prueba"   ],
+    "tags": [ "creativo", "periodismo", "IA" ,"pruebas"   ],
     "rrss" : [
       {
         "id": "instagram",
