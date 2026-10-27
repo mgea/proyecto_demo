@@ -45,7 +45,7 @@
             overflow-x: hidden;
         }
 
-        /* Ocultar barra de scroll estándar */
+        /* Scrollbar custom */
         ::-webkit-scrollbar {
             width: 8px;
             height: 8px;
@@ -61,7 +61,7 @@
             background: #D4AF37;
         }
 
-        /* Transición suave para imágenes y hover */
+        /* Hover efects en tarjetas de artista */
         .artist-card img {
             filter: grayscale(100%);
             transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), filter 0.6s ease;
@@ -71,7 +71,7 @@
             transform: scale(1.08);
         }
 
-        /* Bucle Infinito Deslizante por JS */
+        /* Carousel Wrapper */
         .infinite-carousel-wrapper {
             display: flex;
             width: max-content;
@@ -83,7 +83,7 @@
             cursor: grabbing;
         }
 
-        /* Parallax Background */
+        /* Parallax */
         .parallax-bg {
             background-attachment: fixed;
             background-position: center;
@@ -91,12 +91,12 @@
             background-size: cover;
         }
 
-        /* Capas oscuras con diferencias sutiles */
+        /* Fondos diferenciados */
         .bg-sec-dark-1 { background-color: #070707; }
         .bg-sec-dark-2 { background-color: #0D0D0D; }
         .bg-sec-dark-3 { background-color: #121212; }
 
-        /* Ecualizador animado */
+        /* Ecualizador animación */
         .eq-bar {
             animation: eqBounce 1.2s ease-in-out infinite alternate;
         }
@@ -105,25 +105,6 @@
         @keyframes eqBounce {
             0% { height: 4px; }
             100% { height: 18px; }
-        }
-
-        /* Ratio uniforme y balanceado de reproductores */
-        .video-box-equal {
-            position: relative;
-            width: 100%;
-            height: 0;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio equilibrado */
-            overflow: hidden;
-            border-radius: 0.75rem;
-            background-color: #000;
-        }
-        .video-box-equal iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
         }
     </style>
 </head>
@@ -136,7 +117,7 @@
     <header class="fixed top-0 left-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-flamenco-border/40 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             
-            <!-- Logotipo -->
+            <!-- Logo -->
             <a href="#inicio" class="flex items-center gap-3 group">
                 <div class="w-10 h-10 rounded-full border border-flamenco-gold/50 flex items-center justify-center bg-flamenco-red/20 group-hover:border-flamenco-gold transition-colors">
                     <span class="font-cinzel text-flamenco-gold font-bold text-xl">S</span>
@@ -211,7 +192,7 @@
 
         <div id="carousel-viewport" class="w-full h-[75vh] overflow-hidden flex items-center relative z-10 cursor-grab active:cursor-grabbing">
             <div id="carousel-track" class="infinite-carousel-wrapper flex gap-6 px-6">
-                <!-- Se inyectan las tarjetas de artistas -->
+                <!-- Tarjetas de artistas -->
             </div>
         </div>
     </section>
@@ -233,28 +214,41 @@
                 Descripción del artista...
             </p>
 
-            <!-- Vídeos de YouTube integrados con Control de Exclusividad Mutua por YouTube API -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-                <!-- Vídeo IA -->
-                <div class="bg-flamenco-card p-6 rounded-2xl border border-flamenco-border">
-                    <div class="flex items-center gap-3 mb-4">
-                        <i class="fa-solid fa-robot text-flamenco-gold text-xl"></i>
-                        <h3 class="font-cinzel text-lg font-bold text-white">Reconstrucción & Avatar IA</h3>
+            <!-- VÍDEOS DE YOUTUBE: PROPORCIONES PROPORCIONALES (9:16 Y 16:9) A LA MISMA ALTURA + RETRATO EN B/N EN lg: -->
+            <div class="bg-flamenco-card p-6 sm:p-8 rounded-2xl border border-flamenco-border mb-16 shadow-2xl">
+                <div class="flex flex-col lg:flex-row items-center justify-center gap-8">
+                    
+                    <!-- Imagen de la cantante en B/N (Sólo en Viewports Grandes lg: o superior) -->
+                    <div class="hidden lg:block w-72 h-[360px] sm:h-[400px] flex-shrink-0 rounded-xl overflow-hidden border border-flamenco-gold/40 relative group shadow-lg">
+                        <img id="panel-artista-img-lg" src="" alt="Artista" class="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 transition-all duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 right-4 text-center">
+                            <span class="font-cinzel text-xs text-flamenco-gold uppercase tracking-widest block">Retrato Inmortal</span>
+                        </div>
                     </div>
-                    <div class="video-box-equal">
-                        <div id="player-ia-container" class="w-full h-full"></div>
-                    </div>
-                </div>
 
-                <!-- Entrevista Documental -->
-                <div class="bg-flamenco-card p-6 rounded-2xl border border-flamenco-border">
-                    <div class="flex items-center gap-3 mb-4">
-                        <i class="fa-solid fa-video text-flamenco-gold text-xl"></i>
-                        <h3 class="font-cinzel text-lg font-bold text-white">Entrevista Documental</h3>
+                    <!-- Contenedor Vídeo IA Vertical (Aspect ratio 9:16 con altura fija proporcional) -->
+                    <div class="flex flex-col items-center flex-shrink-0 w-full sm:w-auto">
+                        <div class="flex items-center gap-2 mb-3 w-full text-left">
+                            <i class="fa-solid fa-robot text-flamenco-gold text-sm"></i>
+                            <h3 class="font-cinzel text-sm font-bold text-white tracking-wider">Reconstrucción & Avatar IA (Vertical)</h3>
+                        </div>
+                        <div class="h-[360px] sm:h-[400px] aspect-[9/16] bg-black rounded-xl overflow-hidden border border-flamenco-border relative shadow-md">
+                            <div id="player-ia-container" class="w-full h-full"></div>
+                        </div>
                     </div>
-                    <div class="video-box-equal">
-                        <div id="player-entrevista-container" class="w-full h-full"></div>
+
+                    <!-- Contenedor Vídeo Entrevista Horizontal (Aspect ratio 16:9 con altura fija proporcional) -->
+                    <div class="flex flex-col items-center flex-grow w-full">
+                        <div class="flex items-center gap-2 mb-3 w-full text-left">
+                            <i class="fa-solid fa-video text-flamenco-gold text-sm"></i>
+                            <h3 class="font-cinzel text-sm font-bold text-white tracking-wider">Entrevista Documental (Horizontal)</h3>
+                        </div>
+                        <div class="h-[360px] sm:h-[400px] aspect-[16/9] w-full max-w-full bg-black rounded-xl overflow-hidden border border-flamenco-border relative shadow-md">
+                            <div id="player-entrevista-container" class="w-full h-full"></div>
+                        </div>
                     </div>
+
                 </div>
             </div>
 
@@ -332,7 +326,7 @@
 
     <!-- APLICACIÓN JAVASCRIPT DINÁMICA -->
     <script>
-        // DATOS POR DEFECTO EN CASO DE NO HALLAR AUTOLOAD.JSON
+        // DATOS POR DEFECTO SI NO EXISTE AUTOLOAD.JSON
         const defaultData = {
             "bailaores": [
                 {
@@ -428,7 +422,6 @@
         // OBJETOS REPRODUCTORES DE YOUTUBE PARA CONTROL MUTUO
         let ytPlayerIA = null;
         let ytPlayerEntrevista = null;
-        let ytApiReady = false;
 
         // BUCLE INFINITO JS CARRUSEL
         let scrollPos = 0;
@@ -442,10 +435,6 @@
             renderizarAplicacion();
             iniciarCarruselLoop();
         });
-
-        function onYouTubeIframeAPIReady() {
-            ytApiReady = true;
-        }
 
         // 1. CARGA DINÁMICA DE AUTOLOAD.JSON
         async function cargarAutoloadJSON() {
@@ -461,7 +450,6 @@
             }
         }
 
-        // CARGA MANUAL DE FICHERO JSON
         function cargarJsonManual(event) {
             const file = event.target.files[0];
             if (!file) return;
@@ -506,7 +494,6 @@
             const bailaores = currentData.bailaores || [];
             if (bailaores.length === 0) return;
 
-            // Duplicar elementos para efecto seamless infinite loop
             const items = [...bailaores, ...bailaores, ...bailaores];
 
             items.forEach((artista) => {
@@ -573,7 +560,7 @@
             return (match && match[1]) ? match[1] : url;
         }
 
-        // 3. APERTURA DEL PANEL Y CONTROL DE EXCLUSIVIDAD MUTUA DE VÍDEOS
+        // 3. APERTURA DEL PANEL CON MANTENIMIENTO DE ASPECT RATIO Y CONTROL EXCLUSIVO MUTUO
         function abrirPanelArtista(artista) {
             const panel = document.getElementById('panel-artista');
             panel.classList.remove('hidden');
@@ -582,18 +569,23 @@
             document.getElementById('panel-rol').innerText = artista.rol || '';
             document.getElementById('panel-descripcion').innerText = artista.descripcion || '';
 
+            // Cargar imagen en B/N para viewports lg:
+            const imgLg = document.getElementById('panel-artista-img-lg');
+            imgLg.src = artista.imagen;
+            imgLg.onerror = function() { this.src = generarSVGFallback(artista.nombre); };
+
             const idIA = extraerYouTubeId(artista.iaVideo);
             const idEntrevista = extraerYouTubeId(artista.entrevista);
 
             // Destruir reproductores anteriores si existen
-            if (ytPlayerIA) { ytPlayerIA.destroy(); ytPlayerIA = null; }
-            if (ytPlayerEntrevista) { ytPlayerEntrevista.destroy(); ytPlayerEntrevista = null; }
+            if (ytPlayerIA) { try { ytPlayerIA.destroy(); } catch(e){} ytPlayerIA = null; }
+            if (ytPlayerEntrevista) { try { ytPlayerEntrevista.destroy(); } catch(e){} ytPlayerEntrevista = null; }
 
-            // Recrear contenedores para la API
-            document.getElementById('player-ia-container').innerHTML = '<div id="yt-ia-element"></div>';
-            document.getElementById('player-entrevista-container').innerHTML = '<div id="yt-entrevista-element"></div>';
+            // Recrear contenedores para la API de YouTube
+            document.getElementById('player-ia-container').innerHTML = '<div id="yt-ia-element" class="w-full h-full"></div>';
+            document.getElementById('player-entrevista-container').innerHTML = '<div id="yt-entrevista-element" class="w-full h-full"></div>';
 
-            // Crear Reproductor IA con Autoplay
+            // Crear Reproductor IA (Vertical 9:16)
             ytPlayerIA = new YT.Player('yt-ia-element', {
                 height: '100%',
                 width: '100%',
@@ -601,7 +593,7 @@
                 playerVars: { 'autoplay': 1, 'enablejsapi': 1, 'rel': 0 },
                 events: {
                     'onStateChange': (e) => {
-                        // Si el vídeo IA empieza a reproducirse (PLAYING = 1), se pausa la Entrevista
+                        // Si el vídeo IA se reproduce, pausar la entrevista
                         if (e.data === YT.PlayerState.PLAYING) {
                             if (ytPlayerEntrevista && typeof ytPlayerEntrevista.pauseVideo === 'function') {
                                 ytPlayerEntrevista.pauseVideo();
@@ -611,7 +603,7 @@
                 }
             });
 
-            // Crear Reproductor Entrevista
+            // Crear Reproductor Entrevista (Horizontal 16:9)
             ytPlayerEntrevista = new YT.Player('yt-entrevista-element', {
                 height: '100%',
                 width: '100%',
@@ -619,7 +611,7 @@
                 playerVars: { 'autoplay': 0, 'enablejsapi': 1, 'rel': 0 },
                 events: {
                     'onStateChange': (e) => {
-                        // Si el vídeo Entrevista empieza a reproducirse (PLAYING = 1), se pausa el vídeo IA
+                        // Si el vídeo Entrevista se reproduce, pausar el vídeo IA
                         if (e.data === YT.PlayerState.PLAYING) {
                             if (ytPlayerIA && typeof ytPlayerIA.pauseVideo === 'function') {
                                 ytPlayerIA.pauseVideo();
@@ -629,7 +621,7 @@
                 }
             });
 
-            // Renderizar Bento Grid de Noticias/Recursos del Artista
+            // Bento Grid de Noticias
             const bentoContainer = document.getElementById('bento-noticias');
             bentoContainer.innerHTML = '';
 
@@ -660,8 +652,8 @@
         function cerrarPanelArtista() {
             const panel = document.getElementById('panel-artista');
             panel.classList.add('hidden');
-            if (ytPlayerIA) { ytPlayerIA.destroy(); ytPlayerIA = null; }
-            if (ytPlayerEntrevista) { ytPlayerEntrevista.destroy(); ytPlayerEntrevista = null; }
+            if (ytPlayerIA) { try { ytPlayerIA.destroy(); } catch(e){} ytPlayerIA = null; }
+            if (ytPlayerEntrevista) { try { ytPlayerEntrevista.destroy(); } catch(e){} ytPlayerEntrevista = null; }
         }
 
         // 4. RENDERIZAR SECCIÓN PROYECTO
