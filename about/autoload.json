@@ -2,7 +2,7 @@
     "id": "marco",
     "nombre": "Marco González",
     "titulo": "Investigación y Comunicación Multimedia",
-    "img": "./img/marco.png",
+    "img": "./img/Marco.png",
     "tags": [ "creativo", "periodismo", "IA"    ],
     "rrss" : [
       {
