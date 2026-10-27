@@ -1,0 +1,161 @@
+{
+  "bailaores": [
+    {
+      "id": "mariquilla",
+      "nombre": "Mariquilla",
+      "rol": "Maestra & Bailaora de Leyenda",
+      "descripcion": "María Guardia Gómez, conocida históricamente como Mariquilla, es una de las grandes bailaores de Granada. Hija de la cantaora y bailaora María, desde su cuna en el Sacromonte hasta las giras internacionales, Mariquilla encarna la elegancia, el temperamento sobrio y la maestría en el braceo que definió la escuela flamenca granadina.",
+      "wixUrl": "https://hijosdelsacromonte.wixsite.com/hijos-del-sacromonte/blank",
+      "iaVideo": "https://www.youtube.com/embed/JU5ME6Q5xRU",
+      "entrevista": "https://www.youtube.com/embed/oLf7NE8LTdo",
+      "imagen": "./img/mariquilla.jpg",
+      "noticias": [
+        {
+          "titulo": "Mariquilla recibe el homenaje a toda una vida dedicada al baile flamenco",
+          "medio": "Diario de Granada",
+          "url": "https://hijosdelsacromonte.wixsite.com/hijos-del-sacromonte/blank",
+          "imagen": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=400&auto=format&fit=crop",
+          "fecha": "2024"
+        },
+        {
+          "titulo": "La cuna del flamenco granadino y la estirpe de María Guardia Gómez",
+          "medio": "Revista Flamenca",
+          "url": "https://hijosdelsacromonte.wixsite.com/hijos-del-sacromonte/blank",
+          "imagen": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=400&auto=format&fit=crop",
+          "fecha": "2023"
+        }
+      ],
+      "redesSociales": {
+        "youtube": "https://www.youtube.com/watch?v=oLf7NE8LTdo",
+        "instagram": "https://instagram.com",
+        "facebook": "https://facebook.com"
+      }
+    },
+    {
+      "id": "canastera",
+      "nombre": "María la Canastera",
+      "rol": "Matriarca & Leyenda de la Cueva",
+      "descripcion": "María Cortés Heredia, 'María la Canastera', es el alma inmortal del Sacromonte. Su cueva fue epicentro cultural internacional por donde desfilaron artistas, diplomáticos y amantes del arte para presenciar la zambra pura y el legado viviente del pueblo gitano.",
+      "wixUrl": "https://hijosdelsacromonte.wixsite.com/hijos-del-sacromonte/blank-1",
+      "iaVideo": "https://www.youtube.com/embed/JU5ME6Q5xRU",
+      "entrevista": "https://www.youtube.com/embed/oLf7NE8LTdo",
+      "imagen": "./img/canastera.jpg",
+      "noticias": [
+        {
+          "titulo": "La Cueva de María la Canastera: Bien de Interés Cultural en Granada",
+          "medio": "Granada Hoy",
+          "url": "https://hijosdelsacromonte.wixsite.com/hijos-del-sacromonte/blank-1",
+          "imagen": "https://images.unsplash.com/photo-1543857778-c4a1a3e0b2eb?q=80&w=400&auto=format&fit=crop",
+          "fecha": "2024"
+        }
+      ],
+      "redesSociales": {
+        "youtube": "https://www.youtube.com/watch?v=oLf7NE8LTdo",
+        "facebook": "https://facebook.com"
+      }
+    },
+    {
+      "id": "manolete",
+      "nombre": "Manolete",
+      "rol": "Maestro del Baile Masculino",
+      "descripcion": "Manuel Santiago Maya, conocido universalmente como 'Manolete'. Referente indiscutible del baile flamenco masculino por la sobriedad de sus pases, el señorío en escena y la elegancia rítmica transmitida directamente de la casta sacromontana.",
+      "wixUrl": "https://hijosdelsacromonte.wixsite.com/hijos-del-sacromonte/blank-2",
+      "iaVideo": "https://www.youtube.com/embed/JU5ME6Q5xRU",
+      "entrevista": "https://www.youtube.com/embed/oLf7NE8LTdo",
+      "imagen": "./img/manolete.jpg",
+      "noticias": [
+        {
+          "titulo": "El legado inalcanzable de Manolete en la Escuela de Baile del Sacromonte",
+          "medio": "El País - Cultura",
+          "url": "https://hijosdelsacromonte.wixsite.com/hijos-del-sacromonte/blank-2",
+          "imagen": "https://images.unsplash.com/photo-1547153760-18fc86324498?q=80&w=400&auto=format&fit=crop",
+          "fecha": "2023"
+        }
+      ],
+      "redesSociales": {
+        "youtube": "https://www.youtube.com/watch?v=oLf7NE8LTdo",
+        "instagram": "https://instagram.com"
+      }
+    },
+    {
+      "id": "antonia",
+      "nombre": "Antonia la Gallina",
+      "rol": "Bailaora Festera de Racial Pureza",
+      "descripcion": "Antonia 'La Gallina' encarna el genio festero, la visceralidad y el compás espontáneo de la zambra gitana. Su estampa bailaora es un pilar fundamental en la memoria oral de las familias del Sacromonte.",
+      "wixUrl": "https://hijosdelsacromonte.wixsite.com/hijos-del-sacromonte/blank-3",
+      "iaVideo": "https://www.youtube.com/embed/JU5ME6Q5xRU",
+      "entrevista": "https://www.youtube.com/embed/oLf7NE8LTdo",
+      "imagen": "./img/gallina.jpg",
+      "noticias": [
+        {
+          "titulo": "La farsa y la zambra: el compás único de Antonia la Gallina",
+          "medio": "Cultura Andaluza",
+          "url": "https://hijosdelsacromonte.wixsite.com/hijos-del-sacromonte/blank-3",
+          "imagen": "https://images.unsplash.com/photo-1533105079780-92b9be482077?q=80&w=400&auto=format&fit=crop",
+          "fecha": "2022"
+        }
+      ],
+      "redesSociales": {
+        "youtube": "https://www.youtube.com/watch?v=oLf7NE8LTdo"
+      }
+    },
+    {
+      "id": "director",
+      "nombre": "José Sánchez-Montes",
+      "rol": "Director y Documentalista",
+      "descripcion": "Cineasta y creador audiovisual. José Sánchez-Montes ha dedicado años a investigar y capturar en celuloide la memoria viva de los maestros flamencos en su célebre documental 'Sacromonte. Los sabios de la tribu', haciendo posible la divulgación interactiva de este patrimonio.",
+      "wixUrl": "https://hijosdelsacromonte.wixsite.com/hijos-del-sacromonte/blank-4",
+      "iaVideo": "https://www.youtube.com/embed/JU5ME6Q5xRU",
+      "entrevista": "https://www.youtube.com/embed/oLf7NE8LTdo",
+      "imagen": "./img/joseSanchezMontes.jpg",
+      "noticias": [
+        {
+          "titulo": "Sánchez-Montes rescata el archivo inédito de las zambras en el cine",
+          "medio": "Fotogramas",
+          "url": "https://hijosdelsacromonte.wixsite.com/hijos-del-sacromonte/blank-4",
+          "imagen": "https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=400&auto=format&fit=crop",
+          "fecha": "2024"
+        }
+      ],
+      "redesSociales": {
+        "youtube": "https://www.youtube.com/watch?v=oLf7NE8LTdo",
+        "instagram": "https://instagram.com"
+      }
+    }
+  ],
+  "proyecto": {
+    "descripcion": "Proyecto de recuperación de la memoria",
+    "recursos": [
+      {
+        "titulo": "El flamenco",
+        "descripcion": "página oficial",
+        "url": "https://www.flamencogranada.org/",
+        "imagen": "https://images.unsplash.com/photo-1547153760-18fc86324498?q=80&w=400&auto=format&fit=crop"
+      }
+    ]
+  },
+  "autor": {
+    "nombre": "Marco González",
+    "titulo": "Investigación y Comunicación Multimedia",
+    "descripcion": "Trabajo desarrollado por el periodista peruano Marco Gonzales Cadillo en el marco del curso 'Bases Teóricas y Metodológicas para la Investigación en Medios Audiovisuales en la Era Digital' del Máster en Nuevos Medios Interactivos y Periodismo Multimedia de la Universidad de Granada.",
+    "img": "./img/Marco.png",
+    "recursos": [
+      {
+        "id": "portfolio",
+        "url": "./about/index.html",
+        "imagen": "https://images.unsplash.com/photo-1547153760-18fc86324498?q=80&w=400&auto=format&fit=crop"
+      },
+      {
+        "id": "instagram",
+        "url": "https://www.instagram.com/marco_gonzales_c/",
+        "imagen": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1280px-Instagram_logo_2022.svg.png?utm_source=es.wikipedia.org&utm_campaign=index&utm_content=thumbnail"
+      }
+    ]
+  },
+
+  "configuracion": {
+    "sonido": "./snd/flamenco.mp3"
+  }
+
+
+}

@@ -1,0 +1,56 @@
+{
+    "id": "marco",
+    "nombre": "Marco González",
+    "titulo": "Investigación y Comunicación Multimedia",
+    "img": "./img/marco.png",
+    "tags": [ "creativo", "periodismo", "IA"    ],
+    "rrss" : [
+      {
+        "id": "instagram",
+        "url": "https://www.instagram.com/marco_gonzales_c/",
+      },
+      {
+        "id": "facebook",
+        "url": "https://www.instagram.com/marco_gonzales_c/",
+
+      },
+      {
+        "id": "mail",
+        "url": "https://www.instagram.com/marco_gonzales_c/",
+
+      },
+      {
+        "id": "yooutube",
+        "url": "https://www.instagram.com/marco_gonzales_c/",
+
+      }
+    ],
+     "formacion": [
+      {
+        "id": "grado",
+        "url": "https://www.flamencogranada.org/",
+        "titulo": "graduado en X",
+        "imagen": "https://images.unsplash.com/photo-1547153760-18fc86324498?q=80&w=400&auto=format&fit=crop"
+      },
+      {
+        "id": "master",
+        "url": "https://www.instagram.com/marco_gonzales_c/",
+        "imagen": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1280px-Instagram_logo_2022.svg.png?utm_source=es.wikipedia.org&utm_campaign=index&utm_content=thumbnail"
+      }
+    ],
+
+     "proyectos": [
+      {
+        "id": "hs",
+        "url": "https://www.flamencogranada.org/",
+        "titulo": "Hijos del Sacromonte",
+        "imagen": "https://images.unsplash.com/photo-1547153760-18fc86324498?q=80&w=400&auto=format&fit=crop"
+      },
+      {
+        "id": "alh",
+        "url": "https://www.instagram.com/marco_gonzales_c/",
+        "titulo": "Cuentos de la alhambra",
+        "imagen": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1280px-Instagram_logo_2022.svg.png?utm_source=es.wikipedia.org&utm_campaign=index&utm_content=thumbnail"
+      }
+    ]
+  }

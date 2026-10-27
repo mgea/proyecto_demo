@@ -1,0 +1,72 @@
+# Profile prompt 
+
+
+
+Diseñar una SPA para crear una tarjeta de presentacion (profile card) con un estilo organico natural,  y cuyos datos se podrá leer de un fichero json (autoload.json) que se cargará automaticamente al inicio de app, hay un botón en parte superior para cargar json y validarlo si fuese necesario. Los datos de redes sociales (rrss) se cambiaran por su logo de FontAwesome con mpaaing dinámico para cada plataforma sin incluir nombre  (Twitter, Instagram, GitHub, CodePen, LinkedIn, YouTube, etc.). La foto tiene un leve efecto hover de zoom y formato circular.  Los datos de contenido están en el json que adjunto 
+
+```
+
+{
+    "id": "marco",
+    "nombre": "Marco González",
+    "titulo": "Investigación y Comunicación Multimedia",
+    "img": "./img/Marco.png",
+    "tags": [ "creativo", "periodismo", "IA"    ],
+    "rrss" : [
+      {
+        "id": "instagram",
+        "url": "https://www.instagram.com/marco_gonzales_c/",
+      },
+      {
+        "id": "facebook",
+        "url": "https://www.instagram.com/marco_gonzales_c/",
+
+      },
+      {
+        "id": "mail",
+        "url": "https://www.instagram.com/marco_gonzales_c/",
+
+      },
+      {
+        "id": "yooutube",
+        "url": "https://www.instagram.com/marco_gonzales_c/",
+
+      }
+    ],
+     "formacion": [
+      {
+        "id": "grado",
+        "url": "https://www.flamencogranada.org/",
+        "titulo": "graduado en X",
+        "imagen": "https://images.unsplash.com/photo-1547153760-18fc86324498?q=80&w=400&auto=format&fit=crop"
+      },
+      {
+        "id": "master",
+        "url": "https://www.instagram.com/marco_gonzales_c/",
+        "imagen": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1280px-Instagram_logo_2022.svg.png?utm_source=es.wikipedia.org&utm_campaign=index&utm_content=thumbnail"
+      }
+    ],
+
+     "proyectos": [
+      {
+        "id": "hs",
+        "url": "https://www.flamencogranada.org/",
+        "titulo": "Hijos del Sacromonte",
+        "imagen": "https://images.unsplash.com/photo-1547153760-18fc86324498?q=80&w=400&auto=format&fit=crop"
+      },
+      {
+        "id": "alh",
+        "url": "https://www.instagram.com/marco_gonzales_c/",
+        "titulo": "Cuentos de la alhambra",
+        "imagen": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1280px-Instagram_logo_2022.svg.png?utm_source=es.wikipedia.org&utm_campaign=index&utm_content=thumbnail"
+      }
+    ],
+
+   
+
+
+  }
+
+
+```
+

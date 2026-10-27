@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marco González - Tarjeta de Perfil</title>
+  
+  <!-- FontAwesome 6 CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0f7ff',
+              100: '#e0effe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8'
+            }
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.4s ease-out forwards',
+            'bounce-subtle': 'bounceSubtle 2s infinite'
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: '0', transform: 'translateY(12px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' }
+            },
+            bounceSubtle: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-4px)' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Transición fluida para foto de perfil con zoom suave */
+    .avatar-zoom-container {
+      overflow: hidden;
+      border-radius: 9999px;
+      isolation: isolate;
+    }
+    
+    .avatar-img {
+      transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), filter 0.3s ease;
+    }
+    
+    .avatar-zoom-container:hover .avatar-img {
+      transform: scale(1.12);
+      filter: brightness(1.05);
+    }
+
+    /* Scrollbar estilizada */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(156, 163, 175, 0.4);
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(107, 114, 128, 0.7);
+    }
+  </style>
+</head>
+<body class="bg-slate-100 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-full flex flex-col justify-center items-center p-4 transition-colors duration-300">
+
+  <!-- Botón Flotante de Tema Oscuro / Claro -->
+  <button id="theme-toggle" class="fixed top-4 right-4 z-50 p-3 rounded-full bg-white/80 dark:bg-slate-800/80 backdrop-blur-md shadow-lg border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-amber-400 hover:scale-110 active:scale-95 transition-all duration-200" aria-label="Cambiar tema">
+    <i id="theme-toggle-icon" class="fa-solid fa-moon text-lg"></i>
+  </button>
+
+  <!-- Tarjeta Principal de Perfil -->
+  <main class="w-full max-w-md bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border border-slate-100 dark:border-slate-800/80 p-6 sm:p-8 animate-fade-in relative my-8">
+    
+    <!-- Encabezado y Foto Circular -->
+    <header class="flex flex-col items-center text-center">
+      
+      <!-- Contenedor Avatar con Formato Circular, Borde, Sombra y Zoom Fluido -->
+      <div class="relative group mb-5">
+        <div class="absolute -inset-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 rounded-full blur opacity-40 group-hover:opacity-75 transition duration-500"></div>
+        <div class="avatar-zoom-container relative w-32 h-32 sm:w-36 sm:h-36 border-4 border-white dark:border-slate-800 shadow-xl bg-slate-200 dark:bg-slate-800">
+          <img id="profile-img" src="" alt="Marco González" class="avatar-img w-full h-full object-cover" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=500&auto=format&fit=crop';">
+        </div>
+        <span class="absolute bottom-2 right-2 w-4 h-4 bg-emerald-500 border-2 border-white dark:border-slate-900 rounded-full shadow-md" title="Disponible para colaborar"></span>
+      </div>
+
+      <!-- Nombre y Título -->
+      <h1 id="profile-name" class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-1">
+        <!-- Cargado dinámicamente -->
+      </h1>
+      <p id="profile-title" class="text-sm sm:text-base font-medium text-blue-600 dark:text-blue-400 mb-4">
+        <!-- Cargado dinámicamente -->
+      </p>
+
+      <!-- Tags / Etiquetas -->
+      <div id="profile-tags" class="flex flex-wrap justify-center gap-2 mb-6">
+        <!-- Cargado dinámicamente -->
+      </div>
+
+      <!-- Redes Sociales Mapeadas Dinámicamente -->
+      <div id="profile-rrss" class="flex flex-wrap justify-center gap-3 w-full pb-6 border-b border-slate-100 dark:border-slate-800">
+        <!-- Cargado dinámicamente -->
+      </div>
+    </header>
+
+    <!-- Navegación por pestañas interactivas -->
+    <section class="mt-6">
+      <div class="flex border-b border-slate-200 dark:border-slate-800 mb-4">
+        <button id="tab-proyectos-btn" onclick="switchTab('proyectos')" class="flex-1 py-2.5 text-center font-semibold text-sm border-b-2 border-blue-600 dark:border-blue-400 text-blue-600 dark:text-blue-400 transition-all duration-200 flex items-center justify-center gap-2">
+          <i class="fa-solid fa-folder-open text-xs"></i> Proyectos
+        </button>
+        <button id="tab-formacion-btn" onclick="switchTab('formacion')" class="flex-1 py-2.5 text-center font-semibold text-sm border-b-2 border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 transition-all duration-200 flex items-center justify-center gap-2">
+          <i class="fa-solid fa-graduation-cap text-xs"></i> Formación
+        </button>
+      </div>
+
+      <!-- Tab Contenido Proyectos -->
+      <div id="tab-proyectos" class="space-y-3">
+        <!-- Tarjetas dinámicas -->
+      </div>
+
+      <!-- Tab Contenido Formación -->
+      <div id="tab-formacion" class="space-y-3 hidden">
+        <!-- Tarjetas dinámicas -->
+      </div>
+    </section>
+
+    <!-- Footer / Acciones -->
+    <footer class="mt-8 pt-4 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs text-slate-400 dark:text-slate-500">
+      <button onclick="copyShareLink()" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-1.5 focus:outline-none">
+        <i class="fa-solid fa-share-nodes"></i> Compartir Perfil
+      </button>
+      <span class="font-mono">ID: <span id="profile-id">marco</span></span>
+    </footer>
+  </main>
+
+  <!-- Toast Notificación -->
+  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-900/90 dark:bg-white/90 text-white dark:text-slate-900 px-4 py-2.5 rounded-full shadow-xl text-xs font-semibold backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300 z-50 flex items-center gap-2">
+    <i class="fa-solid fa-circle-check text-emerald-400 dark:text-emerald-600"></i>
+    <span id="toast-message">Enlace copiado al portapapeles</span>
+  </div>
+
+  <!-- Modal Preview -->
+  <div id="modal-preview" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+    <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full overflow-hidden shadow-2xl border border-slate-200 dark:border-slate-800 transform scale-95 transition-transform duration-300" id="modal-content">
+      <div class="relative h-48 sm:h-56 bg-slate-100 dark:bg-slate-800 overflow-hidden">
+        <img id="modal-img" src="" alt="" class="w-full h-full object-cover">
+        <button onclick="closeModal()" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-slate-900/60 hover:bg-slate-900/90 text-white flex items-center justify-center transition-colors">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="p-5">
+        <h3 id="modal-title" class="text-lg font-bold text-slate-900 dark:text-white mb-2"></h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mb-4">Información detallada del elemento multimedia cargado dinámicamente.</p>
+        <div class="flex justify-end gap-2">
+          <button onclick="closeModal()" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">Cerrar</button>
+          <a id="modal-link" href="#" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white transition-colors flex items-center gap-1.5">
+            Visitar enlace <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Objeto de datos JSON adjunto
+    const autoloadData = {
+      "id": "marco",
+      "nombre": "Marco González",
+      "titulo": "Investigación y Comunicación Multimedia",
+      "img": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop",
+      "tags": [ "creativo", "periodismo", "IA" ],
+      "rrss": [
+        {
+          "id": "instagram",
+          "url": "https://www.instagram.com/marco_gonzales_c/"
+        },
+        {
+          "id": "facebook",
+          "url": "https://www.facebook.com/"
+        },
+        {
+          "id": "mail",
+          "url": "mailto:marco.gonzalez@example.com"
+        },
+        {
+          "id": "yooutube", // Manejo resiliente de la errata presente en el JSON
+          "url": "https://www.youtube.com/"
+        },
+        {
+          "id": "twitter",
+          "url": "https://twitter.com/"
+        },
+        {
+          "id": "github",
+          "url": "https://github.com/"
+        },
+        {
+          "id": "linkedin",
+          "url": "https://linkedin.com/"
+        }
+      ],
+      "formacion": [
+        {
+          "id": "grado",
+          "url": "https://www.flamencogranada.org/",
+          "titulo": "Graduado en Comunicación y Periodismo",
+          "imagen": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=400&auto=format&fit=crop"
+        },
+        {
+          "id": "master",
+          "url": "https://www.instagram.com/marco_gonzales_c/",
+          "titulo": "Máster en Multimedia e Inteligencia Artificial",
+          "imagen": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=400&auto=format&fit=crop"
+        }
+      ],
+      "proyectos": [
+        {
+          "id": "hs",
+          "url": "https://www.flamencogranada.org/",
+          "titulo": "Hijos del Sacromonte",
+          "imagen": "https://images.unsplash.com/photo-1547153760-18fc86324498?q=80&w=400&auto=format&fit=crop"
+        },
+        {
+          "id": "alh",
+          "url": "https://www.instagram.com/marco_gonzales_c/",
+          "titulo": "Cuentos de la Alhambra",
+          "imagen": "https://images.unsplash.com/photo-1568084680786-a84f91d1153c?q=80&w=400&auto=format&fit=crop"
+        }
+      ]
+    };
+
+    // Diccionario de Mapeo Dinámico para FontAwesome 6
+    const socialIconMap = {
+      instagram: { icon: 'fa-brands fa-instagram', bg: 'hover:bg-gradient-to-tr hover:from-amber-500 hover:via-rose-500 hover:to-purple-600 hover:text-white', name: 'Instagram' },
+      facebook: { icon: 'fa-brands fa-facebook-f', bg: 'hover:bg-blue-600 hover:text-white', name: 'Facebook' },
+      mail: { icon: 'fa-solid fa-envelope', bg: 'hover:bg-emerald-600 hover:text-white', name: 'Correo Electrónico' },
+      email: { icon: 'fa-solid fa-envelope', bg: 'hover:bg-emerald-600 hover:text-white', name: 'Correo Electrónico' },
+      youtube: { icon: 'fa-brands fa-youtube', bg: 'hover:bg-red-600 hover:text-white', name: 'YouTube' },
+      yooutube: { icon: 'fa-brands fa-youtube', bg: 'hover:bg-red-600 hover:text-white', name: 'YouTube' },
+      twitter: { icon: 'fa-brands fa-x-twitter', bg: 'hover:bg-slate-900 hover:text-white dark:hover:bg-slate-700', name: 'Twitter / X' },
+      x: { icon: 'fa-brands fa-x-twitter', bg: 'hover:bg-slate-900 hover:text-white dark:hover:bg-slate-700', name: 'Twitter / X' },
+      github: { icon: 'fa-brands fa-github', bg: 'hover:bg-slate-800 hover:text-white', name: 'GitHub' },
+      linkedin: { icon: 'fa-brands fa-linkedin-in', bg: 'hover:bg-sky-700 hover:text-white', name: 'LinkedIn' },
+      codepen: { icon: 'fa-brands fa-codepen', bg: 'hover:bg-slate-900 hover:text-white', name: 'CodePen' },
+      default: { icon: 'fa-solid fa-globe', bg: 'hover:bg-blue-600 hover:text-white', name: 'Enlace Web' }
+    };
+
+    // Función de Mapeo Seguro
+    function getSocialMeta(id) {
+      const normalizedKey = (id || '').toLowerCase().trim();
+      return socialIconMap[normalizedKey] || socialIconMap.default;
+    }
+
+    // Inicializar Perfil con Datos
+    function initProfile(data) {
+      // 1. Datos Personales
+      document.getElementById('profile-id').textContent = data.id || 'perfil';
+      document.getElementById('profile-name').textContent = data.nombre || 'Nombre Desconocido';
+      document.getElementById('profile-title').textContent = data.titulo || '';
+      
+      const imgElement = document.getElementById('profile-img');
+      imgElement.src = data.img || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop';
+      imgElement.alt = data.nombre || 'Foto de perfil';
+
+      // 2. Renderizar Tags
+      const tagsContainer = document.getElementById('profile-tags');
+      tagsContainer.innerHTML = (data.tags || []).map(tag => `
+        <span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-full text-xs font-semibold hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-default">
+          #${tag}
+        </span>
+      `).join('');
+
+      // 3. Renderizar Redes Sociales Dinámicas
+      const rrssContainer = document.getElementById('profile-rrss');
+      rrssContainer.innerHTML = (data.rrss || []).map(social => {
+        const meta = getSocialMeta(social.id);
+        return `
+          <a href="${social.url}" target="_blank" rel="noopener noreferrer" 
+             title="${meta.name}" 
+             aria-label="${meta.name}"
+             class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 flex items-center justify-center text-base transition-all duration-300 hover:scale-110 shadow-sm ${meta.bg}">
+            <i class="${meta.icon}"></i>
+          </a>
+        `;
+      }).join('');
+
+      // 4. Renderizar Proyectos
+      const proyectosContainer = document.getElementById('tab-proyectos');
+      proyectosContainer.innerHTML = (data.proyectos || []).map(item => createCardItemHTML(item)).join('');
+
+      // 5. Renderizar Formación
+      const formacionContainer = document.getElementById('tab-formacion');
+      formacionContainer.innerHTML = (data.formacion || []).map(item => createCardItemHTML(item)).join('');
+    }
+
+    // Helper para generar items de listas
+    function createCardItemHTML(item) {
+      const displayTitle = item.titulo || (item.id ? item.id.toUpperCase() : 'Detalle');
+      return `
+        <div class="group relative flex items-center justify-between p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 hover:border-blue-200 dark:hover:border-blue-900/50 transition-all duration-200 hover:shadow-md">
+          <div class="flex items-center gap-3.5 overflow-hidden">
+            <div class="w-12 h-12 rounded-xl overflow-hidden flex-shrink-0 bg-slate-200 dark:bg-slate-700 relative">
+              <img src="${item.imagen}" alt="${displayTitle}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1547153760-18fc86324498?q=80&w=200&auto=format&fit=crop';">
+            </div>
+            <div class="truncate">
+              <h4 class="text-sm font-bold text-slate-800 dark:text-slate-100 truncate group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">${displayTitle}</h4>
+              <p class="text-xs text-slate-400 dark:text-slate-500 truncate flex items-center gap-1 mt-0.5">
+                <i class="fa-solid fa-link text-[10px]"></i> Ver enlace
+              </p>
+            </div>
+          </div>
+          <div class="flex items-center gap-1">
+            <button onclick="openModal('${encodeURIComponent(JSON.stringify(item))}')" title="Previsualizar" class="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-lg transition-colors">
+              <i class="fa-solid fa-expand text-xs"></i>
+            </button>
+            <a href="${item.url}" target="_blank" rel="noopener noreferrer" title="Abrir enlace" class="p-2 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/50 rounded-lg transition-colors">
+              <i class="fa-solid fa-chevron-right text-xs"></i>
+            </a>
+          </div>
+        </div>
+      `;
+    }
+
+    // Alternar entre Pestañas (Tabs)
+    function switchTab(tab) {
+      const proyectosBtn = document.getElementById('tab-proyectos-btn');
+      const formacionBtn = document.getElementById('tab-formacion-btn');
+      const proyectosContent = document.getElementById('tab-proyectos');
+      const formacionContent = document.getElementById('tab-formacion');
+
+      const activeClasses = ['border-blue-600', 'dark:border-blue-400', 'text-blue-600', 'dark:text-blue-400'];
+      const inactiveClasses = ['border-transparent', 'text-slate-500'];
+
+      if (tab === 'proyectos') {
+        proyectosBtn.classList.add(...activeClasses);
+        proyectosBtn.classList.remove(...inactiveClasses);
+        formacionBtn.classList.remove(...activeClasses);
+        formacionBtn.classList.add(...inactiveClasses);
+
+        proyectosContent.classList.remove('hidden');
+        formacionContent.classList.add('hidden');
+      } else {
+        formacionBtn.classList.add(...activeClasses);
+        formacionBtn.classList.remove(...inactiveClasses);
+        proyectosBtn.classList.remove(...activeClasses);
+        proyectosBtn.classList.add(...inactiveClasses);
+
+        formacionContent.classList.remove('hidden');
+        proyectosContent.classList.add('hidden');
+      }
+    }
+
+    // Modal Previsualizador
+    function openModal(itemJsonEncoded) {
+      const item = JSON.parse(decodeURIComponent(itemJsonEncoded));
+      const modal = document.getElementById('modal-preview');
+      const modalContent = document.getElementById('modal-content');
+      
+      document.getElementById('modal-img').src = item.imagen;
+      document.getElementById('modal-title').textContent = item.titulo || item.id;
+      document.getElementById('modal-link').href = item.url;
+
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      modalContent.classList.remove('scale-95');
+      modalContent.classList.add('scale-100');
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('modal-preview');
+      const modalContent = document.getElementById('modal-content');
+
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      modalContent.classList.remove('scale-100');
+      modalContent.classList.add('scale-95');
+    }
+
+    // Copiar Enlace / Compartir
+    function copyShareLink() {
+      const textToCopy = window.location.href;
+      
+      // Manejo seguro con fallback para Clipboard API
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(textToCopy).then(showToast);
+      } else {
+        const textArea = document.createElement("textarea");
+        textArea.value = textToCopy;
+        textArea.style.position = "fixed";
+        textArea.style.left = "-999999px";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+          document.execCommand('copy');
+          showToast();
+        } catch (err) {
+          console.error('Error al copiar', err);
+        }
+        document.body.removeChild(textArea);
+      }
+    }
+
+    function showToast() {
+      const toast = document.getElementById('toast');
+      toast.classList.remove('opacity-0', 'pointer-events-none');
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'pointer-events-none');
+      }, 2500);
+    }
+
+    // Lógica del Tema Oscuro / Claro
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const themeToggleIcon = document.getElementById('theme-toggle-icon');
+
+    function initTheme() {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (prefersDark) {
+        document.documentElement.classList.add('dark');
+        themeToggleIcon.className = 'fa-solid fa-sun text-lg';
+      } else {
+        document.documentElement.classList.remove('dark');
+        themeToggleIcon.className = 'fa-solid fa-moon text-lg';
+      }
+    }
+
+    themeToggleBtn.addEventListener('click', () => {
+      const isDark = document.documentElement.classList.toggle('dark');
+      themeToggleIcon.className = isDark ? 'fa-solid fa-sun text-lg' : 'fa-solid fa-moon text-lg';
+    });
+
+    // Evento de inicio cuando la ventana se carga
+    window.onload = function() {
+      initTheme();
+      initProfile(autoloadData);
+    };
+  </script>
+</body>
+</html>
