@@ -3,449 +3,339 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hijos del Sacromonte | Documental Interactivo</title>
-    <!-- Tailwind CSS -->
+    <title>Hijos del Sacromonte | Documental Interactivo de Flamenco</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        burgundy: {
-                            800: '#580816',
-                            900: '#3A040D',
-                            950: '#220106'
-                        },
-                        gold: {
-                            400: '#F3C668',
-                            500: '#D4AF37',
-                            600: '#AA8517'
-                        },
-                        darksec: {
-                            hero: '#0a0a0c',
-                            gallery: '#121215',
-                            panel: '#151519',
-                            proyecto: '#18181d',
-                            autor: '#0e0e11',
-                            footer: '#070709'
+                        flamenco: {
+                            red: '#8B0000',
+                            crimson: '#DC143C',
+                            gold: '#D4AF37',
+                            goldlight: '#F3E5AB',
+                            dark: '#0A0A0A',
+                            card: '#141414',
+                            border: '#2A2A2A'
                         }
                     },
                     fontFamily: {
-                        serif: ['Cinzel', 'Georgia', 'serif'],
-                        display: ['Playfair Display', 'serif'],
-                        sans: ['Plus Jakarta Sans', 'sans-serif']
+                        cinzel: ['Cinzel', 'serif'],
+                        playfair: ['Playfair Display', 'serif'],
+                        sans: ['Inter', 'sans-serif']
                     }
                 }
             }
         }
     </script>
-    <!-- Google Fonts -->
+    <!-- Fuentes Google -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800;900&family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome para iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- YouTube IFrame API -->
-    <script src="https://www.youtube.com/iframe_api"></script>
     
     <style>
         body {
-            background-color: #0a0a0c;
-            color: #F5F5F4;
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0A0A0A;
+            color: #E5E5E5;
+            font-family: 'Inter', sans-serif;
             overflow-x: hidden;
         }
 
-        /* Scrollbar personalización elegante */
+        /* Ocultar barra de scroll estándar */
         ::-webkit-scrollbar {
             width: 8px;
+            height: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: #070709;
+            background: #0A0A0A;
         }
         ::-webkit-scrollbar-thumb {
-            background: #3A040D;
+            background: #2A2A2A;
             border-radius: 4px;
         }
         ::-webkit-scrollbar-thumb:hover {
             background: #D4AF37;
         }
 
-        /* Carrusel arrastrable de pantalla completa */
-        .carousel-viewport {
-            width: 100vw;
-            height: 100vh;
-            overflow: hidden;
-            position: relative;
-            cursor: grab;
-            user-select: none;
-            -webkit-user-select: none;
+        /* Transición suave para imágenes y hover */
+        .artist-card img {
+            filter: grayscale(100%);
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), filter 0.6s ease;
         }
-        .carousel-viewport:active {
-            cursor: grabbing;
-        }
-
-        .carousel-track {
-            display: flex;
-            height: 100%;
-            align-items: center;
-            will-change: transform;
-            position: absolute;
-            left: 0;
-            top: 0;
-        }
-
-        /* Transición de Tarjetas de Artistas: B/N a Color + Zoom */
-        .artist-card-img {
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
-            filter: grayscale(100%) contrast(110%);
-        }
-        .artist-card:hover .artist-card-img {
-            filter: grayscale(0%) contrast(105%);
+        .artist-card:hover img {
+            filter: grayscale(0%);
             transform: scale(1.08);
         }
 
-        .aspect-vertical {
-            aspect-ratio: 9 / 16;
+        /* Bucle Infinito Deslizante por JS */
+        .infinite-carousel-wrapper {
+            display: flex;
+            width: max-content;
+            cursor: grab;
+            user-select: none;
+            will-change: transform;
         }
-        .aspect-horizontal {
-            aspect-ratio: 16 / 9;
+        .infinite-carousel-wrapper:active {
+            cursor: grabbing;
         }
 
-        /* Indicador de onda sonora */
-        .sound-wave {
-            display: inline-flex;
-            align-items: flex-end;
-            gap: 2px;
-            height: 14px;
+        /* Parallax Background */
+        .parallax-bg {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
         }
-        .sound-wave span {
-            width: 3px;
-            background-color: #D4AF37;
-            border-radius: 3px;
-            animation: wave 1.2s ease-in-out infinite alternate;
-        }
-        .sound-wave span:nth-child(2) { animation-delay: 0.2s; }
-        .sound-wave span:nth-child(3) { animation-delay: 0.4s; }
 
-        @keyframes wave {
-            0% { height: 3px; }
-            100% { height: 14px; }
+        /* Diferenciación sutil de capas oscuras */
+        .bg-sec-dark-1 { background-color: #070707; }
+        .bg-sec-dark-2 { background-color: #0D0D0D; }
+        .bg-sec-dark-3 { background-color: #121212; }
+
+        /* Ecualizador animado para la música */
+        .eq-bar {
+            animation: eqBounce 1.2s ease-in-out infinite alternate;
+        }
+        .eq-bar:nth-child(2) { animation-delay: 0.2s; }
+        .eq-bar:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes eqBounce {
+            0% { height: 4px; }
+            100% { height: 18px; }
+        }
+
+        /* Ratio uniforme de reproductores */
+        .video-box-equal {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            overflow: hidden;
+            border-radius: 0.75rem;
+            background-color: #000;
+        }
+        .video-box-equal iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
         }
     </style>
 </head>
-<body class="antialiased selection:bg-gold-500 selection:text-burgundy-950">
+<body class="antialiased text-gray-200">
 
-    <!-- Elemento de Audio HTML5 oculto para música de ambiente dinámica -->
-    <audio id="bg-audio" loop preload="auto"></audio>
+    <!-- AUDIO AMBIENTAL -->
+    <audio id="audio-ambiente" loop preload="auto"></audio>
 
-    <!-- HEADER DE NAVEGACIÓN -->
-    <header class="fixed top-0 left-0 right-0 z-40 bg-[#0a0a0c]/90 backdrop-blur-md border-b border-gold-500/20 transition-all duration-300">
+    <!-- HEADER / NAVEGACIÓN -->
+    <header class="fixed top-0 left-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-flamenco-border/40 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             
             <!-- Logotipo -->
-            <a href="#inicio" class="flex items-center space-x-3 group">
-                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-gold-400 to-burgundy-800 flex items-center justify-center text-[#0a0a0c] font-bold font-serif shadow-lg group-hover:scale-105 transition-transform">
-                    HS
+            <a href="#inicio" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-full border border-flamenco-gold/50 flex items-center justify-center bg-flamenco-red/20 group-hover:border-flamenco-gold transition-colors">
+                    <span class="font-cinzel text-flamenco-gold font-bold text-xl">S</span>
                 </div>
                 <div>
-                    <span class="block font-serif text-lg font-bold tracking-widest text-gold-400 leading-none">HIJOS DEL</span>
-                    <span class="block font-serif text-xs tracking-wider text-stone-300 leading-tight">SACROMONTE</span>
+                    <span class="font-cinzel text-lg sm:text-xl font-bold tracking-widest text-white block leading-none">HIJOS DEL</span>
+                    <span class="font-playfair text-xs tracking-widest text-flamenco-gold block uppercase">Sacromonte</span>
                 </div>
             </a>
 
             <!-- Enlaces de Navegación -->
-            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium tracking-wide">
-                <a href="#inicio" class="text-stone-300 hover:text-gold-400 transition-colors">Inicio</a>
-                <a href="#galeria" class="text-stone-300 hover:text-gold-400 transition-colors">Artistas</a>
-                <a href="#proyecto" class="text-stone-300 hover:text-gold-400 transition-colors">Proyecto</a>
-                <a href="#acerca" class="text-stone-300 hover:text-gold-400 transition-colors">Acerca de</a>
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="#inicio" class="text-sm uppercase tracking-widest text-gray-300 hover:text-flamenco-gold transition-colors">Inicio</a>
+                <a href="#artistas" class="text-sm uppercase tracking-widest text-gray-300 hover:text-flamenco-gold transition-colors">Artistas</a>
+                <a href="#proyecto" class="text-sm uppercase tracking-widest text-gray-300 hover:text-flamenco-gold transition-colors">Proyecto</a>
+                <a href="#autor" class="text-sm uppercase tracking-widest text-gray-300 hover:text-flamenco-gold transition-colors">Acerca de</a>
             </nav>
 
-            <!-- Acciones Header -->
-            <div class="flex items-center space-x-3 sm:space-x-4">
-                <!-- Toggle Música de Fondo -->
-                <button id="audio-toggle" title="Activar/Desactivar Música Flamenca" class="px-3 py-2 rounded-xl bg-burgundy-950/80 border border-gold-500/30 text-gold-400 hover:bg-gold-500 hover:text-[#0a0a0c] transition-all duration-300 flex items-center space-x-2 text-xs">
-                    <i id="audio-icon" class="fa-solid fa-volume-xmark"></i>
-                    <span id="audio-text" class="hidden sm:inline font-medium">Ambiente</span>
-                    <div id="sound-wave" class="sound-wave hidden">
-                        <span></span><span></span><span></span>
+            <!-- Acciones Header (Audio & Carga JSON) -->
+            <div class="flex items-center gap-3">
+                <!-- Botón Música de Fondo -->
+                <button id="btn-audio" onclick="toggleAudio()" class="flex items-center gap-2 px-3 py-1.5 rounded-full border border-flamenco-gold/30 bg-flamenco-card hover:border-flamenco-gold text-xs font-cinzel text-flamenco-goldlight transition-all" title="Activar/Desactivar Música de Fondo">
+                    <div id="eq-icon" class="flex items-end gap-0.5 h-4 w-4 hidden">
+                        <span class="eq-bar w-1 bg-flamenco-gold rounded-t"></span>
+                        <span class="eq-bar w-1 bg-flamenco-gold rounded-t"></span>
+                        <span class="eq-bar w-1 bg-flamenco-gold rounded-t"></span>
                     </div>
+                    <i id="audio-icon-static" class="fa-solid fa-music"></i>
+                    <span id="audio-status-text">Música: OFF</span>
                 </button>
 
-                <!-- Cargar Fichero JSON -->
-                <label class="cursor-pointer px-3 py-2 text-xs font-medium rounded-xl bg-gold-500/10 text-gold-400 border border-gold-500/40 hover:bg-gold-500 hover:text-[#0a0a0c] transition-all duration-300 flex items-center space-x-2">
+                <!-- Cargar JSON Personalizado -->
+                <label for="json-input" class="cursor-pointer flex items-center gap-2 px-3 py-1.5 rounded-full bg-flamenco-red/80 hover:bg-flamenco-red text-white text-xs font-cinzel tracking-wider transition-colors">
                     <i class="fa-solid fa-file-code"></i>
                     <span class="hidden sm:inline">Cargar JSON</span>
-                    <input type="file" id="json-input" accept=".json" class="hidden">
                 </label>
+                <input type="file" id="json-input" accept=".json" class="hidden" onchange="cargarJsonManual(event)">
             </div>
         </div>
     </header>
 
-    <main class="pt-20">
-
-        <!-- 1. HERO SECTION (#0a0a0c) -->
-        <section id="inicio" class="relative min-h-[90vh] flex items-center justify-center overflow-hidden py-16 px-4 bg-darksec-hero">
-            <!-- Imagen Parallax -->
-            <div class="absolute inset-0 z-0">
-                <img id="hero-bg" src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=1600&auto=format&fit=crop" 
-                     onerror="this.onerror=null; this.src=generateFallbackSVG('Sacromonte Hero', 1600, 900);" 
-                     alt="Sacromonte Granada" 
-                     class="w-full h-full object-cover opacity-30 scale-105 transition-transform duration-75 ease-out">
-                <div class="absolute inset-0 bg-gradient-to-t from-darksec-hero via-darksec-hero/70 to-darksec-hero/90"></div>
-            </div>
-
-            <div class="relative z-10 max-w-5xl mx-auto text-center space-y-8">
-                <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-burgundy-950/90 border border-gold-500/40 text-gold-400 text-xs tracking-widest uppercase font-semibold shadow-lg">
-                    <span class="w-2 h-2 rounded-full bg-red-600 animate-pulse"></span>
-                    <span>Documental Interactivo Transmedia</span>
-                </div>
-
-                <h1 class="font-serif text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white leading-tight">
-                    HIJOS DEL <span class="text-transparent bg-clip-text bg-gradient-to-r from-gold-400 via-gold-500 to-amber-600">SACROMONTE</span>
-                </h1>
-
-                <p id="hero-desc" class="max-w-3xl mx-auto text-base sm:text-lg text-stone-200 font-light leading-relaxed">
-                    Rescatando la memoria viva, las zambras y la estirpe de las grandes figuras del baile y cante flamenco de Granada. Una inmersión interactiva por el patrimonio cultural de las cuevas del Valparaíso.
-                </p>
-
-                <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <a href="#galeria" class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gradient-to-r from-gold-500 to-amber-600 text-[#0a0a0c] font-bold shadow-lg hover:shadow-gold-500/20 hover:scale-105 transition-all duration-300 text-center">
-                        Explorar Galería <i class="fa-solid fa-arrow-down ml-2 text-xs"></i>
-                    </a>
-                    <a href="#proyecto" class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-burgundy-950/80 text-stone-200 border border-gold-500/30 font-medium hover:bg-burgundy-900 transition-all duration-300 text-center">
-                        Conocer el Proyecto
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- 2. GALERÍA FULLSCREEN ARRASTRABLE E INFINITA (#121215) -->
-        <section id="galeria" class="relative bg-darksec-gallery border-y border-gold-500/15">
-            <div class="absolute top-6 left-0 right-0 z-20 pointer-events-none px-6 flex justify-between items-center max-w-7xl mx-auto">
-                <div class="bg-darksec-hero/85 backdrop-blur-md px-4 py-2 rounded-xl border border-gold-500/30 shadow-lg pointer-events-auto">
-                    <h2 class="font-serif text-lg sm:text-xl font-bold text-white">Galería de Leyendas</h2>
-                    <p class="text-xs text-stone-400">Arrastra con el ratón/tacto o usa la rueda para desplazar libremente</p>
-                </div>
-                <div class="hidden sm:flex items-center space-x-2 text-xs text-gold-400 font-mono bg-darksec-hero/85 backdrop-blur-md px-3 py-1.5 rounded-lg border border-gold-500/20 pointer-events-auto">
-                    <i class="fa-solid fa-arrows-left-right animate-pulse"></i>
-                    <span>Desplazamiento Infinito Continuo</span>
-                </div>
-            </div>
-
-            <div id="carousel-viewport" class="carousel-viewport">
-                <div id="carousel-track" class="carousel-track space-x-8 px-8">
-                    <!-- Tarjetas cargadas dinámicamente -->
-                </div>
-            </div>
-        </section>
-
-        <!-- 3. PANEL INTERACTIVO DE ARTISTA SELECCIONADO (#151519) -->
-        <section id="panel-artista" class="hidden py-20 px-4 bg-darksec-panel border-b border-gold-500/20">
-            <div class="max-w-7xl mx-auto space-y-12">
-                
-                <!-- Encabezado Bio Artista -->
-                <div class="bg-gradient-to-r from-burgundy-950/80 via-darksec-panel to-burgundy-950/80 border border-gold-500/30 rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden">
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                        <div class="lg:col-span-4 text-center lg:text-left">
-                            <div class="relative w-40 h-40 sm:w-48 sm:h-48 rounded-2xl overflow-hidden border-2 border-gold-500 shadow-2xl mx-auto lg:mx-0">
-                                <img id="detail-img" src="" alt="" class="w-full h-full object-cover">
-                            </div>
-                        </div>
-                        <div class="lg:col-span-8 space-y-4">
-                            <div class="flex flex-wrap items-center gap-3">
-                                <span id="detail-role" class="px-3 py-1 rounded-full text-xs font-semibold bg-gold-500/20 text-gold-400 border border-gold-500/30"></span>
-                                <span id="detail-id" class="text-xs font-mono text-stone-400 uppercase tracking-widest"></span>
-                            </div>
-                            <h2 id="detail-name" class="font-serif text-3xl sm:text-5xl font-extrabold text-white"></h2>
-                            <p id="detail-desc" class="text-stone-300 text-sm sm:text-base leading-relaxed font-light"></p>
-                            
-                            <div id="detail-socials" class="pt-2 flex flex-wrap gap-4 text-xs">
-                                <!-- Redes Dinámicas -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Reproductores con YouTube API Mutuamente Excluyentes -->
-                <div class="space-y-6">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-3 h-3 rounded-full bg-gold-500"></div>
-                        <h3 class="font-serif text-2xl font-bold text-white">Archivo Audiovisual Interactivo</h3>
-                    </div>
-                    <p class="text-xs sm:text-sm text-stone-400">Los reproductores están sincronizados mediante YouTube API: reproducir uno pausará el otro automáticamente.</p>
-
-                    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
-                        <!-- Vídeo IA Vertical (9:16) -->
-                        <div class="md:col-span-5 space-y-3 bg-darksec-hero p-4 sm:p-6 rounded-2xl border border-gold-500/20">
-                            <div class="flex items-center justify-between text-xs text-gold-400 font-mono">
-                                <span><i class="fa-solid fa-mobile-screen mr-1"></i> Retrato Sintético IA</span>
-                                <span class="px-2 py-0.5 rounded bg-gold-500/10 border border-gold-500/30">9:16</span>
-                            </div>
-                            <div class="relative w-full aspect-vertical bg-black rounded-xl overflow-hidden border border-stone-800 shadow-xl">
-                                <div id="player-ia" class="w-full h-full"></div>
-                            </div>
-                        </div>
-
-                        <!-- Entrevista Horizontal (16:9) -->
-                        <div class="md:col-span-7 space-y-3 bg-darksec-hero p-4 sm:p-6 rounded-2xl border border-gold-500/20">
-                            <div class="flex items-center justify-between text-xs text-gold-400 font-mono">
-                                <span><i class="fa-solid fa-tv mr-1"></i> Entrevista Documental</span>
-                                <span class="px-2 py-0.5 rounded bg-gold-500/10 border border-gold-500/30">16:9</span>
-                            </div>
-                            <div class="relative w-full aspect-horizontal bg-black rounded-xl overflow-hidden border border-stone-800 shadow-xl">
-                                <div id="player-interview" class="w-full h-full"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Bento Grid de Noticias del Artista -->
-                <div class="space-y-6">
-                    <h3 class="font-serif text-xl font-bold text-gold-400">Noticias y Fuentes Hemerográficas</h3>
-                    <div id="detail-bento" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <!-- Tarjetas dinámicas -->
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- 4. SECCIÓN PROYECTO DINÁMICA (#18181d) -->
-        <section id="proyecto" class="py-20 px-4 bg-darksec-proyecto border-b border-gold-500/15">
-            <div class="max-w-7xl mx-auto space-y-16">
-                
-                <div class="text-center max-w-3xl mx-auto space-y-4">
-                    <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gold-500/10 text-gold-400 border border-gold-500/30 uppercase tracking-widest">
-                        Investigación & Metodología
-                    </span>
-                    <h2 class="font-serif text-3xl sm:text-5xl font-bold text-white">El Proceso de Ideación</h2>
-                    <p id="proyecto-descripcion" class="text-stone-300 text-sm sm:text-base leading-relaxed font-light">
-                        <!-- Cargado desde json (proyecto.descripcion) -->
-                    </p>
-                </div>
-
-                <!-- Bento Grid General del Proyecto -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <!-- Contexto -->
-                    <div class="md:col-span-2 bg-gradient-to-br from-burgundy-950/70 to-darksec-hero border border-gold-500/20 rounded-3xl p-8 flex flex-col justify-between hover:border-gold-500/40 transition-all">
-                        <div class="space-y-4">
-                            <span class="text-xs font-mono text-gold-400">01 / CONTEXTO HISTÓRICO & PATRIMONIO</span>
-                            <h3 class="font-serif text-2xl font-bold text-white">La Zambra Gitana en la Cuna del Sacromonte</h3>
-                            <p class="text-stone-300 text-sm leading-relaxed">
-                                Las cuevas trogloditas del Sacromonte han preservado durante siglos una manifestación flamenca autóctona de Granada. Este documental transmedia digitaliza testimonios de sagas familiares para evitar la extinción de su memoria oral.
-                            </p>
-                        </div>
-                        <div class="mt-8 flex items-center space-x-4 text-xs text-stone-400 border-t border-gold-500/10 pt-4">
-                            <span><i class="fa-solid fa-location-dot mr-1 text-gold-400"></i> Sacromonte, Granada</span>
-                            <span>•</span>
-                            <span><i class="fa-solid fa-landmark mr-1 text-gold-400"></i> Patrimonio Inmaterial</span>
-                        </div>
-                    </div>
-
-                    <!-- Innovación -->
-                    <div class="bg-darksec-hero border border-gold-500/20 rounded-3xl p-8 flex flex-col justify-between hover:border-gold-500/40 transition-all">
-                        <div class="space-y-4">
-                            <div class="w-12 h-12 rounded-2xl bg-burgundy-900 flex items-center justify-center text-gold-400 text-xl">
-                                <i class="fa-solid fa-wand-magic-sparkles"></i>
-                            </div>
-                            <h3 class="font-serif text-xl font-bold text-white">Nuevos Lenguajes IA</h3>
-                            <p class="text-stone-300 text-sm leading-relaxed">
-                                Retratos sintéticos verticales (9:16) adaptados a narrativas dinámicas en redes y plataformas interactivas modernas.
-                            </p>
-                        </div>
-                        <span class="text-xs font-mono text-gold-400/80 mt-6 block">Investigación Audiovisual</span>
-                    </div>
-                </div>
-
-                <!-- Bento Grid Recursos del Proyecto (Cargados dinámicamente) -->
-                <div class="space-y-6">
-                    <h3 class="font-serif text-2xl font-bold text-gold-400">Recursos y Documentación del Proyecto</h3>
-                    <div id="proyecto-recursos-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <!-- Generado desde JSON proyecto.recursos -->
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- 5. SECCIÓN ACERCA DEL AUTOR DINÁMICA (#0e0e11) -->
-        <section id="acerca" class="py-20 bg-darksec-autor border-t border-gold-500/15">
-            <div class="max-w-5xl mx-auto px-4">
-                <div class="bg-darksec-hero border border-gold-500/30 rounded-3xl p-8 sm:p-12 shadow-2xl grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-                    
-                    <div class="md:col-span-4 text-center">
-                        <div class="w-36 h-36 rounded-2xl overflow-hidden border-2 border-gold-500 shadow-2xl mx-auto">
-                            <img id="autor-img" src="" alt="Autor del proyecto" class="w-full h-full object-cover">
-                        </div>
-                        <h4 id="autor-nombre" class="font-serif font-bold text-white text-xl mt-4"></h4>
-                        <p id="autor-titulo" class="text-xs text-gold-400 font-mono mt-1"></p>
-                    </div>
-
-                    <div class="md:col-span-8 space-y-4">
-                        <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gold-500/10 text-gold-400 border border-gold-500/30">Investigación & Autoría</span>
-                        <h3 class="font-serif text-2xl sm:text-3xl font-bold text-white">Sobre el Autor y Créditos</h3>
-                        <p id="autor-descripcion" class="text-stone-300 text-sm leading-relaxed font-light">
-                            <!-- Carga dinámica autor.descripcion -->
-                        </p>
-                        
-                        <!-- Enlaces / Recursos del Autor -->
-                        <div id="autor-recursos" class="pt-4 flex flex-wrap gap-4">
-                            <!-- Tarjetas / Links dinámicos autor.recursos -->
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- 6. FOOTER (#070709) -->
-    <footer class="bg-darksec-footer border-t border-gold-500/20 py-12 px-4 text-stone-400 text-xs">
-        <div class="max-w-7xl mx-auto space-y-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pb-8 border-b border-stone-800">
-                <div class="space-y-3">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-8 h-8 rounded-full bg-gold-500 flex items-center justify-center text-[#0a0a0c] font-serif font-bold text-xs">
-                            HS
-                        </div>
-                        <span class="font-serif text-sm font-bold text-white">HIJOS DEL SACROMONTE</span>
-                    </div>
-                    <p class="text-stone-400 leading-relaxed">
-                        Documental interactivo para la preservación del patrimonio flamenco granadino.
-                    </p>
-                </div>
-                <div class="space-y-2">
-                    <h5 class="font-serif text-gold-400 font-bold uppercase tracking-wider">Investigación Multimedia</h5>
-                    <p id="footer-autor-desc">Trabajo realizado por el periodista peruano Marco Gonzales Cadillo.</p>
-                    <p>Curso: <em>Bases Teóricas y Metodológicas para la Investigación en Medios Audiovisuales en la Era Digital</em>.</p>
-                </div>
-                <div class="space-y-2">
-                    <h5 class="font-serif text-gold-400 font-bold uppercase tracking-wider">Institución</h5>
-                    <p class="text-white font-medium">Máster en Nuevos Medios Interactivos y Periodismo Multimedia</p>
-                    <p>Universidad de Granada (UGR)</p>
-                    <p>&copy; 2026 Hijos del Sacromonte.</p>
-                </div>
-            </div>
-            <div class="flex flex-col sm:flex-row items-center justify-between text-stone-500 text-xs gap-4">
-                <p>Granada, España • Preservación de Memoria Viva</p>
-                <a href="#inicio" class="hover:text-gold-400 transition-colors flex items-center space-x-1">
-                    <span>Volver arriba</span>
-                    <i class="fa-solid fa-arrow-up"></i>
+    <!-- HERO SECTION CON PARALLAX Y BUEN CONTRASTE -->
+    <section id="inicio" class="relative w-full h-screen flex items-center justify-center overflow-hidden bg-sec-dark-1">
+        <!-- Fondo Parallax con Gradiente de Alto Contraste -->
+        <div class="absolute inset-0 parallax-bg z-0 opacity-40 scale-105 transition-transform duration-700" style="background-image: url('https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=1920&auto=format&fit=crop');"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/40 z-10"></div>
+        
+        <!-- Contenido Hero -->
+        <div class="relative z-20 max-w-5xl mx-auto px-6 text-center">
+            <p class="font-cinzel text-flamenco-gold tracking-[0.3em] text-sm sm:text-base uppercase mb-4 animate-fade-in">Un viaje a las raíces del flamenco en Granada</p>
+            <h1 class="font-cinzel text-4xl sm:text-6xl md:text-7xl font-extrabold text-white tracking-wide mb-6 drop-shadow-lg">
+                HIJOS DEL <span class="text-transparent bg-clip-text bg-gradient-to-r from-flamenco-gold via-yellow-200 to-flamenco-gold">SACROMONTE</span>
+            </h1>
+            <p class="font-playfair text-lg sm:text-2xl text-gray-300 italic max-w-3xl mx-auto font-light leading-relaxed mb-10">
+                Rescatando la memoria viva, el compás inmaterial y la herencia centenaria de las figuras legendarias de las cuevas del Sacromonte.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#artistas" class="w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-to-r from-flamenco-red to-red-900 hover:from-red-700 hover:to-flamenco-red text-white font-cinzel text-sm font-bold tracking-widest shadow-lg hover:shadow-flamenco-red/30 transition-all transform hover:-translate-y-0.5">
+                    EXPLORAR ARTISTAS
                 </a>
+                <a href="#proyecto" class="w-full sm:w-auto px-8 py-4 rounded-full border border-flamenco-gold/50 hover:border-flamenco-gold bg-black/40 text-flamenco-goldlight hover:text-white font-cinzel text-sm tracking-widest transition-all">
+                    CONOCER EL PROYECTO
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALERÍA DE ARTISTAS: CARRUSEL PANTALLA COMPLETA 100VW X 100VH -->
+    <section id="artistas" class="relative w-screen h-screen bg-sec-dark-2 overflow-hidden flex flex-col justify-center border-y border-flamenco-border/30">
+        <div class="absolute top-8 left-8 z-20 pointer-events-none">
+            <h2 class="font-cinzel text-2xl sm:text-3xl font-bold text-white tracking-widest">FIGURAS <span class="text-flamenco-gold">DESTACADAS</span></h2>
+            <p class="font-playfair text-xs sm:text-sm text-gray-400 italic">Desliza con el ratón o arrastra para mover la galería</p>
+        </div>
+
+        <!-- Contenedor del Carrusel Interactivo Drag/Auto -->
+        <div id="carousel-viewport" class="w-full h-[75vh] overflow-hidden flex items-center relative z-10 cursor-grab active:cursor-grabbing">
+            <div id="carousel-track" class="infinite-carousel-wrapper flex gap-6 px-6">
+                <!-- Se inyectan dinámicamente las tarjetas de artistas -->
+            </div>
+        </div>
+    </section>
+
+    <!-- PANEL INFERIOR INTERACTIVO DEL ARTISTA SELECCIONADO -->
+    <section id="panel-artista" class="hidden relative w-full bg-sec-dark-3 py-16 border-b border-flamenco-border/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-start mb-8 border-b border-flamenco-border pb-4">
+                <div>
+                    <span id="panel-rol" class="text-flamenco-gold text-xs font-cinzel uppercase tracking-widest block mb-1">Maestro & Leyenda</span>
+                    <h2 id="panel-nombre" class="font-cinzel text-3xl sm:text-5xl font-bold text-white">Nombre del Artista</h2>
+                </div>
+                <button onclick="cerrarPanelArtista()" class="text-gray-400 hover:text-white text-2xl p-2 transition-colors">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <p id="panel-descripcion" class="font-playfair text-lg text-gray-300 italic mb-12 max-w-4xl leading-relaxed">
+                Descripción detallada del artista...
+            </p>
+
+            <!-- Sección de Vídeos Integrados con la Misma Altura -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+                <!-- Vídeo IA -->
+                <div class="bg-flamenco-card p-6 rounded-2xl border border-flamenco-border">
+                    <div class="flex items-center gap-3 mb-4">
+                        <i class="fa-solid fa-robot text-flamenco-gold text-xl"></i>
+                        <h3 class="font-cinzel text-lg font-bold text-white">Reconstrucción & Avatar IA</h3>
+                    </div>
+                    <!-- Ratio 16:9 Adaptado para Nivelar Alturas -->
+                    <div class="video-box-equal">
+                        <iframe id="iframe-ia" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    </div>
+                </div>
+
+                <!-- Entrevista Documental -->
+                <div class="bg-flamenco-card p-6 rounded-2xl border border-flamenco-border">
+                    <div class="flex items-center gap-3 mb-4">
+                        <i class="fa-solid fa-video text-flamenco-gold text-xl"></i>
+                        <h3 class="font-cinzel text-lg font-bold text-white">Entrevista Documental</h3>
+                    </div>
+                    <!-- Ratio 16:9 Adaptado para Nivelar Alturas -->
+                    <div class="video-box-equal">
+                        <iframe id="iframe-entrevista" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bento Grid de Noticias / Recursos del Artista -->
+            <div class="mt-8">
+                <h3 class="font-cinzel text-xl font-bold text-white mb-6 flex items-center gap-2">
+                    <i class="fa-solid fa-[#D4AF37] fa-newspaper text-flamenco-gold"></i>
+                    Recursos y Cobertura en Medios
+                </h3>
+                <div id="bento-noticias" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Se inyectan las cards Bento -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN PROYECTO -->
+    <section id="proyecto" class="py-24 bg-sec-dark-1 border-b border-flamenco-border/40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mb-16">
+                <span class="text-flamenco-gold font-cinzel text-xs uppercase tracking-widest block mb-2">Contexto Histórico e Ideación</span>
+                <h2 class="font-cinzel text-3xl sm:text-5xl font-bold text-white mb-6">EL PROYECTO</h2>
+                <p id="proyecto-descripcion" class="font-playfair text-gray-300 text-lg leading-relaxed italic">
+                    Cargando información del proyecto...
+                </p>
+            </div>
+
+            <!-- Bento Grid de Recursos Generales del Proyecto -->
+            <div id="proyecto-recursos-bento" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Se inyecta dinámicamente desde JSON -->
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN AUTOR -->
+    <section id="autor" class="py-24 bg-sec-dark-2">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-flamenco-card rounded-3xl p-8 sm:p-12 border border-flamenco-border grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                <div class="md:col-span-4 flex justify-center">
+                    <div class="relative w-48 h-48 sm:w-60 sm:h-60 rounded-full overflow-hidden border-2 border-flamenco-gold/40 shadow-2xl">
+                        <img id="autor-img" src="" alt="Autor del proyecto" class="w-full h-full object-cover" onerror="this.src=generarSVGFallback('Autor');">
+                    </div>
+                </div>
+                <div class="md:col-span-8">
+                    <span id="autor-titulo" class="text-flamenco-gold font-cinzel text-xs uppercase tracking-widest block mb-2">Investigación y Comunicación Multimedia</span>
+                    <h2 id="autor-nombre" class="font-cinzel text-3xl sm:text-4xl font-bold text-white mb-4">Marco González Cadillo</h2>
+                    <p id="autor-descripcion" class="font-playfair text-gray-300 italic text-base sm:text-lg mb-8 leading-relaxed">
+                        Cargando información del autor...
+                    </p>
+                    <div id="autor-links" class="flex flex-wrap gap-4">
+                        <!-- Enlaces del autor -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black py-12 border-t border-flamenco-border/60 text-gray-400 text-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:text-left grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div>
+                <p class="font-cinzel text-white font-bold text-base mb-2">Investigación y Comunicación Multimedia</p>
+                <p class="text-xs text-gray-400 mb-1">Trabajo realizado por el periodista peruano <span class="text-gray-200 font-semibold">Marco Gonzales Cadillo</span>.</p>
+                <p class="text-xs text-gray-500">Curso: Bases Teóricas y Metodológicas para la Investigación en Medios Audiovisuales en la Era Digital.</p>
+            </div>
+            <div class="md:text-right">
+                <p class="font-cinzel text-flamenco-gold text-xs tracking-widest uppercase mb-1">Máster en Nuevos Medios Interactivos y Periodismo Multimedia</p>
+                <p class="text-xs text-gray-400">Universidad de Granada</p>
             </div>
         </div>
     </footer>
 
-    <!-- LÓGICA JAVASCRIPT COMPLETA Y DINÁMICA -->
+    <!-- LÓGICA JAVASCRIPT DINÁMICA -->
     <script>
-        // --- 1. ESTRUCTURA COMPLETA DE DATOS JSON POR DEFECTO ---
-        const DEFAULT_DATA = {
-            "configuracion": {
-                "sonido": "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=spanish-guitar-flamenco-112701.mp3"
-            },
+        // DATOS POR DEFECTO
+        const defaultData = {
             "bailaores": [
                 {
                     "id": "mariquilla",
@@ -463,20 +353,8 @@
                             "url": "https://hijosdelsacromonte.wixsite.com/hijos-del-sacromonte/blank",
                             "imagen": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=400&auto=format&fit=crop",
                             "fecha": "2024"
-                        },
-                        {
-                            "titulo": "La cuna del flamenco granadino y la estirpe de María Guardia Gómez",
-                            "medio": "Revista Flamenca",
-                            "url": "https://hijosdelsacromonte.wixsite.com/hijos-del-sacromonte/blank",
-                            "imagen": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=400&auto=format&fit=crop",
-                            "fecha": "2023"
                         }
-                    ],
-                    "redesSociales": {
-                        "youtube": "https://www.youtube.com/watch?v=oLf7NE8LTdo",
-                        "instagram": "https://instagram.com",
-                        "facebook": "https://facebook.com"
-                    }
+                    ]
                 },
                 {
                     "id": "canastera",
@@ -495,11 +373,7 @@
                             "imagen": "https://images.unsplash.com/photo-1543857778-c4a1a3e0b2eb?q=80&w=400&auto=format&fit=crop",
                             "fecha": "2024"
                         }
-                    ],
-                    "redesSociales": {
-                        "youtube": "https://www.youtube.com/watch?v=oLf7NE8LTdo",
-                        "facebook": "https://facebook.com"
-                    }
+                    ]
                 },
                 {
                     "id": "manolete",
@@ -518,71 +392,22 @@
                             "imagen": "https://images.unsplash.com/photo-1547153760-18fc86324498?q=80&w=400&auto=format&fit=crop",
                             "fecha": "2023"
                         }
-                    ],
-                    "redesSociales": {
-                        "youtube": "https://www.youtube.com/watch?v=oLf7NE8LTdo",
-                        "instagram": "https://instagram.com"
-                    }
-                },
-                {
-                    "id": "antonia",
-                    "nombre": "Antonia la Gallina",
-                    "rol": "Bailaora Festera de Racial Pureza",
-                    "descripcion": "Antonia 'La Gallina' encarna el genio festero, la visceralidad y el compás espontáneo de la zambra gitana. Su estampa bailaora es un pilar fundamental en la memoria oral de las familias del Sacromonte.",
-                    "wixUrl": "https://hijosdelsacromonte.wixsite.com/hijos-del-sacromonte/blank-3",
-                    "iaVideo": "https://www.youtube.com/embed/JU5ME6Q5xRU",
-                    "entrevista": "https://www.youtube.com/embed/oLf7NE8LTdo",
-                    "imagen": "https://images.unsplash.com/photo-1533105079780-92b9be482077?q=80&w=800&auto=format&fit=crop",
-                    "noticias": [
-                        {
-                            "titulo": "La farsa y la zambra: el compás único de Antonia la Gallina",
-                            "medio": "Cultura Andaluza",
-                            "url": "https://hijosdelsacromonte.wixsite.com/hijos-del-sacromonte/blank-3",
-                            "imagen": "https://images.unsplash.com/photo-1533105079780-92b9be482077?q=80&w=400&auto=format&fit=crop",
-                            "fecha": "2022"
-                        }
-                    ],
-                    "redesSociales": {
-                        "youtube": "https://www.youtube.com/watch?v=oLf7NE8LTdo"
-                    }
-                },
-                {
-                    "id": "director",
-                    "nombre": "José Sánchez-Montes",
-                    "rol": "Director y Documentalista",
-                    "descripcion": "Cineasta y creador audiovisual. José Sánchez-Montes ha dedicado años a investigar y capturar en celuloide la memoria viva de los maestros flamencos en su célebre documental 'Sacromonte. Los sabios de la tribu', haciendo posible la divulgación interactiva de este patrimonio.",
-                    "wixUrl": "https://hijosdelsacromonte.wixsite.com/hijos-del-sacromonte/blank-4",
-                    "iaVideo": "https://www.youtube.com/embed/JU5ME6Q5xRU",
-                    "entrevista": "https://www.youtube.com/embed/oLf7NE8LTdo",
-                    "imagen": "https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=1200&auto=format&fit=crop",
-                    "noticias": [
-                        {
-                            "titulo": "Sánchez-Montes rescata el archivo inédito de las zambras en el cine",
-                            "medio": "Fotogramas",
-                            "url": "https://hijosdelsacromonte.wixsite.com/hijos-del-sacromonte/blank-4",
-                            "imagen": "https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=400&auto=format&fit=crop",
-                            "fecha": "2024"
-                        }
-                    ],
-                    "redesSociales": {
-                        "youtube": "https://www.youtube.com/watch?v=oLf7NE8LTdo",
-                        "instagram": "https://instagram.com"
-                    }
+                    ]
                 }
             ],
             "proyecto": {
-                "descripcion": "Proyecto de recuperación de la memoria oral y patrimonio inmaterial flamenco del Sacromonte.",
+                "descripcion": "Proyecto de recuperación de la memoria histórica del flamenco granadino.",
                 "recursos": [
                     {
-                        "titulo": "El flamenco",
-                        "descripcion": "Página oficial del patrimonio flamenco de Granada.",
+                        "titulo": "El Flamenco en Granada",
+                        "descripcion": "Página oficial del centro de documentación flamenca.",
                         "url": "https://www.flamencogranada.org/",
                         "imagen": "https://images.unsplash.com/photo-1547153760-18fc86324498?q=80&w=400&auto=format&fit=crop"
                     }
                 ]
             },
             "autor": {
-                "nombre": "Marco González",
+                "nombre": "Marco González Cadillo",
                 "titulo": "Investigación y Comunicación Multimedia",
                 "descripcion": "Trabajo desarrollado por el periodista peruano Marco Gonzales Cadillo en el marco del curso 'Bases Teóricas y Metodológicas para la Investigación en Medios Audiovisuales en la Era Digital' del Máster en Nuevos Medios Interactivos y Periodismo Multimedia de la Universidad de Granada.",
                 "img": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop",
@@ -591,519 +416,297 @@
                         "id": "portfolio",
                         "url": "https://www.flamencogranada.org/",
                         "imagen": "https://images.unsplash.com/photo-1547153760-18fc86324498?q=80&w=400&auto=format&fit=crop"
-                    },
-                    {
-                        "id": "instagram",
-                        "url": "https://instagram.com/marco",
-                        "imagen": "https://images.unsplash.com/photo-1547153760-18fc86324498?q=80&w=400&auto=format&fit=crop"
                     }
                 ]
+            },
+            "configuracion": {
+                "sonido": "https://cdn.pixabay.com/download/audio/2024/10/03/audio_e58a0d4e0e.mp3"
             }
         };
 
-        let currentData = DEFAULT_DATA;
-        let selectedArtist = null;
+        let currentData = { ...defaultData };
+        let isAudioPlaying = false;
+        let audioContext = null;
 
-        // --- HELPERS DE EXTRACCIÓN Y FALLBACK SVG ---
-        function extractYouTubeId(urlOrId) {
-            if (!urlOrId) return "JU5ME6Q5xRU";
-            if (urlOrId.length === 11 && !urlOrId.includes("/")) return urlOrId;
-            const match = urlOrId.match(/(?:embed\/|v=|vi\/|youtu\.be\/|\/v\/)([^#&?]*)/);
-            return (match && match[1] && match[1].length === 11) ? match[1] : "JU5ME6Q5xRU";
-        }
-
-        function generateFallbackSVG(text, width = 400, height = 600) {
-            const svg = `
-            <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
-                <defs>
-                    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color:#3A040D;stop-opacity:1" />
-                        <stop offset="100%" style="stop-color:#0a0a0c;stop-opacity:1" />
-                    </linearGradient>
-                </defs>
-                <rect width="100%" height="100%" fill="url(#grad)"/>
-                <circle cx="${width/2}" cy="${height/2 - 20}" r="45" fill="none" stroke="#D4AF37" stroke-width="2" opacity="0.6"/>
-                <text x="50%" y="${height/2 + 35}" font-family="Cinzel, serif" font-size="20" fill="#D4AF37" font-weight="bold" text-anchor="middle">${text}</text>
-                <text x="50%" y="${height/2 + 60}" font-family="sans-serif" font-size="12" fill="#A8A29E" text-anchor="middle">Hijos del Sacromonte</text>
-            </svg>`;
-            return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
-        }
-
-        // --- 2. MOTOR DEL CARRUSEL FULLSCREEN INFINITO Y ARRASTRABLE ---
-        let posX = 0;
-        let speed = -1.2;
+        // BUCLE INFINITO JS PARA EL CARRUSEL
+        let scrollPos = 0;
         let isDragging = false;
         let startX = 0;
-        let dragStartX = 0;
-        let lastUserInteraction = 0;
-        let halfWidth = 0;
+        let currentTranslate = 0;
+        let animationFrameId = null;
 
-        const viewport = document.getElementById('carousel-viewport');
-        const track = document.getElementById('carousel-track');
-
-        function setupCarousel() {
-            track.innerHTML = '';
-            const bailaores = currentData.bailaores || [];
-            
-            // Duplicar elementos para efecto looping sin saltos visuales
-            const renderList = [...bailaores, ...bailaores];
-
-            renderList.forEach((artist) => {
-                const card = document.createElement('div');
-                card.className = `artist-card flex-shrink-0 relative rounded-2xl overflow-hidden border border-gold-500/20 bg-[#151519] shadow-2xl group transition-all duration-300 hover:border-gold-500/60`;
-                card.style.width = '340px';
-                card.style.height = '70vh';
-                card.style.maxHeight = '560px';
-                card.setAttribute('data-id', artist.id);
-
-                const fallbackSrc = generateFallbackSVG(artist.nombre);
-
-                card.innerHTML = `
-                    <div class="w-full h-full relative overflow-hidden pointer-events-none">
-                        <img src="${artist.imagen}" 
-                             alt="${artist.nombre}"
-                             onerror="this.onerror=null; this.src='${fallbackSrc}';"
-                             class="artist-card-img w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0c] via-[#0a0a0c]/30 to-transparent opacity-90 group-hover:opacity-75 transition-opacity"></div>
-                        
-                        <div class="absolute bottom-0 left-0 right-0 p-6 space-y-2 transform translate-y-2 group-hover:translate-y-0 transition-transform">
-                            <span class="px-3 py-1 rounded-full text-[10px] font-semibold bg-gold-500/20 text-gold-400 border border-gold-500/30 uppercase tracking-widest">${artist.rol}</span>
-                            <h3 class="font-serif text-2xl font-bold text-white group-hover:text-gold-400 transition-colors">${artist.nombre}</h3>
-                            <p class="text-xs text-stone-300 line-clamp-2 font-light opacity-90 group-hover:opacity-100">${artist.descripcion || ''}</p>
-                            
-                            <div class="pt-2 flex items-center text-xs text-gold-400 font-semibold space-x-1">
-                                <span>Ver Multimedia</span>
-                                <i class="fa-solid fa-arrow-right text-[10px] transform group-hover:translate-x-1 transition-transform"></i>
-                            </div>
-                        </div>
-                    </div>
-                `;
-
-                card.addEventListener('click', () => {
-                    if (Math.abs(posX - dragStartX) < 10) {
-                        selectArtist(artist);
-                    }
-                });
-
-                track.appendChild(card);
-            });
-
-            requestAnimationFrame(() => {
-                halfWidth = track.scrollWidth / 2;
-            });
-        }
-
-        function animateCarousel() {
-            const now = Date.now();
-            if (!isDragging && (now - lastUserInteraction > 1500)) {
-                posX += speed;
-            }
-
-            if (halfWidth > 0) {
-                if (posX <= -halfWidth) posX += halfWidth;
-                else if (posX > 0) posX -= halfWidth;
-            }
-
-            track.style.transform = `translateX(${posX}px)`;
-            requestAnimationFrame(animateCarousel);
-        }
-
-        // Eventos Drag / Wheel
-        viewport.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            startX = e.clientX - posX;
-            dragStartX = posX;
-            lastUserInteraction = Date.now();
+        // INICIALIZACIÓN
+        document.addEventListener('DOMContentLoaded', async () => {
+            await intentarCargaAutoloadJSON();
+            renderizarAplicacion();
+            iniciarCarruselLoop();
         });
 
-        window.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            e.preventDefault();
-            posX = e.clientX - startX;
-            lastUserInteraction = Date.now();
-        });
-
-        window.addEventListener('mouseup', () => {
-            if (isDragging) {
-                isDragging = false;
-                lastUserInteraction = Date.now();
-            }
-        });
-
-        viewport.addEventListener('touchstart', (e) => {
-            isDragging = true;
-            startX = e.touches[0].clientX - posX;
-            dragStartX = posX;
-            lastUserInteraction = Date.now();
-        }, { passive: true });
-
-        window.addEventListener('touchmove', (e) => {
-            if (!isDragging) return;
-            posX = e.touches[0].clientX - startX;
-            lastUserInteraction = Date.now();
-        }, { passive: true });
-
-        window.addEventListener('touchend', () => {
-            if (isDragging) {
-                isDragging = false;
-                lastUserInteraction = Date.now();
-            }
-        });
-
-        viewport.addEventListener('wheel', (e) => {
-            e.preventDefault();
-            const delta = e.deltaX !== 0 ? e.deltaX : e.deltaY;
-            posX -= delta * 0.8;
-            lastUserInteraction = Date.now();
-        }, { passive: false });
-
-        // --- 3. REPRODUCTORES YOUTUBE EXCLUSIVOS ---
-        let playerIA = null;
-        let playerInterview = null;
-
-        function loadYouTubePlayers(iaVideoUrl, interviewVideoUrl) {
-            const idIA = extractYouTubeId(iaVideoUrl);
-            const idInterview = extractYouTubeId(interviewVideoUrl);
-
-            if (!window.YT || !window.YT.Player) {
-                setTimeout(() => loadYouTubePlayers(idIA, idInterview), 300);
-                return;
-            }
-
-            if (playerIA && typeof playerIA.destroy === 'function') playerIA.destroy();
-            if (playerInterview && typeof playerInterview.destroy === 'function') playerInterview.destroy();
-
-            playerIA = new YT.Player('player-ia', {
-                videoId: idIA,
-                playerVars: { 'autoplay': 1, 'controls': 1, 'rel': 0 },
-                events: {
-                    'onStateChange': (event) => {
-                        if (event.data === YT.PlayerState.PLAYING) {
-                            if (playerInterview && typeof playerInterview.pauseVideo === 'function') {
-                                playerInterview.pauseVideo();
-                            }
-                            pauseAudioBackground();
-                        }
-                    }
+        // 1. CARGA AUTOMÁTICA DE autoload.json SI EXISTE
+        async function intentarCargaAutoloadJSON() {
+            try {
+                const response = await fetch('./autoload.json');
+                if (response.ok) {
+                    const data = await response.json();
+                    currentData = data;
+                    console.log('Fichero autoload.json cargado dinámicamente con éxito.');
                 }
-            });
-
-            playerInterview = new YT.Player('player-interview', {
-                videoId: idInterview,
-                playerVars: { 'autoplay': 0, 'controls': 1, 'rel': 0 },
-                events: {
-                    'onStateChange': (event) => {
-                        if (event.data === YT.PlayerState.PLAYING) {
-                            if (playerIA && typeof playerIA.pauseVideo === 'function') {
-                                playerIA.pauseVideo();
-                            }
-                            pauseAudioBackground();
-                        }
-                    }
-                }
-            });
-        }
-
-        // --- 4. SELECCIÓN DE ARTISTA & DETALLES ---
-        function selectArtist(artist) {
-            selectedArtist = artist;
-            const panel = document.getElementById('panel-artista');
-            panel.classList.remove('hidden');
-
-            document.getElementById('detail-name').textContent = artist.nombre;
-            document.getElementById('detail-role').textContent = artist.rol;
-            document.getElementById('detail-id').textContent = `@${artist.id}`;
-            document.getElementById('detail-desc').textContent = artist.descripcion;
-
-            const img = document.getElementById('detail-img');
-            img.src = artist.imagen;
-            img.onerror = function() {
-                this.src = generateFallbackSVG(artist.nombre, 400, 400);
-            };
-
-            const socialsContainer = document.getElementById('detail-socials');
-            socialsContainer.innerHTML = '';
-            if (artist.redesSociales) {
-                Object.entries(artist.redesSociales).forEach(([network, url]) => {
-                    const badge = document.createElement('a');
-                    badge.href = url;
-                    badge.target = "_blank";
-                    badge.rel = "noopener noreferrer";
-                    badge.className = "px-3 py-1.5 rounded-lg bg-burgundy-950/60 border border-gold-500/30 text-gold-400 hover:bg-gold-500 hover:text-[#0a0a0c] transition-colors capitalize flex items-center space-x-1.5";
-                    badge.innerHTML = `<i class="fa-brands fa-${network}"></i> <span>${network}</span>`;
-                    socialsContainer.appendChild(badge);
-                });
-            }
-
-            const bentoContainer = document.getElementById('detail-bento');
-            bentoContainer.innerHTML = '';
-            const noticias = artist.noticias || [];
-
-            if (noticias.length === 0) {
-                bentoContainer.innerHTML = `<p class="text-stone-400 text-sm italic col-span-3">No hay noticias registradas para este artista.</p>`;
-            } else {
-                noticias.forEach(noticia => {
-                    const card = document.createElement('a');
-                    card.href = noticia.url || '#';
-                    card.target = "_blank";
-                    card.rel = "noopener noreferrer";
-                    card.className = "group bg-[#0a0a0c] border border-gold-500/20 rounded-2xl p-5 flex flex-col justify-between hover:border-gold-500/50 transition-all";
-                    
-                    const fallbackNoticia = generateFallbackSVG(noticia.medio || 'Noticia', 400, 200);
-
-                    card.innerHTML = `
-                        <div class="space-y-4">
-                            <div class="h-36 rounded-xl overflow-hidden relative">
-                                <img src="${noticia.imagen}" 
-                                     alt="${noticia.titulo}"
-                                     onerror="this.onerror=null; this.src='${fallbackNoticia}';"
-                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                <span class="absolute top-2 right-2 px-2 py-0.5 rounded bg-[#0a0a0c]/80 backdrop-blur text-[10px] text-gold-400 font-mono">${noticia.fecha || '2024'}</span>
-                            </div>
-                            <span class="text-xs font-mono text-gold-400/80">${noticia.medio}</span>
-                            <h4 class="font-serif text-base font-bold text-white group-hover:text-gold-400 transition-colors line-clamp-2">${noticia.titulo}</h4>
-                        </div>
-                        <div class="mt-4 pt-3 border-t border-stone-800 flex items-center justify-between text-xs text-stone-400">
-                            <span>Leer fuente</span>
-                            <i class="fa-solid fa-arrow-up-right-from-square text-gold-400"></i>
-                        </div>
-                    `;
-                    bentoContainer.appendChild(card);
-                });
-            }
-
-            loadYouTubePlayers(artist.iaVideo, artist.entrevista);
-            panel.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // --- 5. RENDERIZADO DE DATOS DINÁMICOS DE PROYECTO Y AUTOR (DESDE JSON) ---
-        function renderProyectoYAutor() {
-            // Configurar sonido si viene en JSON
-            configureAudioSource();
-
-            // Render de la sección Proyecto
-            if (currentData.proyecto) {
-                const desc = document.getElementById('proyecto-descripcion');
-                if (desc && currentData.proyecto.descripcion) {
-                    desc.textContent = currentData.proyecto.descripcion;
-                }
-
-                const containerRecursos = document.getElementById('proyecto-recursos-container');
-                containerRecursos.innerHTML = '';
-                const recursos = currentData.proyecto.recursos || [];
-
-                recursos.forEach(rec => {
-                    const card = document.createElement('a');
-                    card.href = rec.url;
-                    card.target = "_blank";
-                    card.rel = "noopener noreferrer";
-                    card.className = "bg-[#0a0a0c] border border-gold-500/20 rounded-2xl p-6 flex flex-col justify-between hover:border-gold-500/50 transition-all group";
-                    
-                    const fallbackRec = generateFallbackSVG(rec.titulo, 400, 200);
-
-                    card.innerHTML = `
-                        <div class="space-y-4">
-                            <div class="h-32 rounded-xl overflow-hidden">
-                                <img src="${rec.imagen}" 
-                                     alt="${rec.titulo}"
-                                     onerror="this.onerror=null; this.src='${fallbackRec}';"
-                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                            </div>
-                            <h4 class="font-serif font-bold text-lg text-white group-hover:text-gold-400 transition-colors">${rec.titulo}</h4>
-                            <p class="text-xs text-stone-300 leading-relaxed">${rec.descripcion || ''}</p>
-                        </div>
-                        <div class="mt-4 pt-3 border-t border-stone-800 text-xs text-gold-400 font-medium flex items-center justify-between">
-                            <span>Acceder al recurso</span>
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </div>
-                    `;
-                    containerRecursos.appendChild(card);
-                });
-            }
-
-            // Render de la sección Autor
-            if (currentData.autor) {
-                const autor = currentData.autor;
-                document.getElementById('autor-nombre').textContent = autor.nombre || '';
-                document.getElementById('autor-titulo').textContent = autor.titulo || '';
-                document.getElementById('autor-descripcion').textContent = autor.descripcion || '';
-                document.getElementById('footer-autor-desc').textContent = autor.descripcion || '';
-
-                const imgAutor = document.getElementById('autor-img');
-                imgAutor.src = autor.img || '';
-                imgAutor.onerror = function() {
-                    this.src = generateFallbackSVG(autor.nombre || 'Autor', 300, 300);
-                };
-
-                const recursosAutorContainer = document.getElementById('autor-recursos');
-                recursosAutorContainer.innerHTML = '';
-
-                if (autor.recursos && Array.isArray(autor.recursos)) {
-                    autor.recursos.forEach(rec => {
-                        const link = document.createElement('a');
-                        link.href = rec.url;
-                        link.target = "_blank";
-                        link.rel = "noopener noreferrer";
-                        link.className = "inline-flex items-center space-x-2 px-4 py-2 rounded-xl bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs font-bold hover:bg-gold-500 hover:text-[#0a0a0c] transition-all capitalize";
-                        link.innerHTML = `
-                            <i class="fa-solid fa-link"></i>
-                            <span>${rec.id || 'Recurso'}</span>
-                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-                        `;
-                        recursosAutorContainer.appendChild(link);
-                    });
-                }
+            } catch (err) {
+                console.log('No se encontró autoload.json local, utilizando datos iniciales por defecto.');
             }
         }
 
-        // --- 6. PARALLAX EFFECT EN HERO ---
-        window.addEventListener('scroll', () => {
-            const scrolled = window.scrollY;
-            const heroBg = document.getElementById('hero-bg');
-            if (heroBg && scrolled < window.innerHeight) {
-                heroBg.style.transform = `scale(1.05) translateY(${scrolled * 0.35}px)`;
-            }
-        });
-
-        // --- 7. MÚSICA AMBIENTAL (HTML5 AUDIO CON FALLBACK A WEB AUDIO API) ---
-        let audioCtx = null;
-        let isAudioPlaying = false;
-        let useHtmlAudio = false;
-        let mainOsc = null;
-        let subOsc = null;
-        let gainNode = null;
-        const bgAudioElem = document.getElementById('bg-audio');
-
-        function configureAudioSource() {
-            const audioUrl = currentData?.configuracion?.sonido;
-            if (audioUrl) {
-                bgAudioElem.src = audioUrl;
-                useHtmlAudio = true;
-            } else {
-                useHtmlAudio = false;
-            }
-        }
-
-        function updateAudioUI(playing) {
-            const icon = document.getElementById('audio-icon');
-            const wave = document.getElementById('sound-wave');
-            const text = document.getElementById('audio-text');
-
-            if (playing) {
-                icon.className = 'fa-solid fa-volume-high';
-                wave.classList.remove('hidden');
-                text.textContent = 'Sonando';
-            } else {
-                icon.className = 'fa-solid fa-volume-xmark';
-                wave.classList.add('hidden');
-                text.textContent = 'Ambiente';
-            }
-        }
-
-        function pauseAudioBackground() {
-            if (!isAudioPlaying) return;
-            
-            if (useHtmlAudio && bgAudioElem) {
-                bgAudioElem.pause();
-            } else if (gainNode) {
-                gainNode.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.5);
-                setTimeout(() => {
-                    if (mainOsc) mainOsc.stop();
-                    if (subOsc) subOsc.stop();
-                }, 500);
-            }
-            isAudioPlaying = false;
-            updateAudioUI(false);
-        }
-
-        function toggleAudio() {
-            if (!isAudioPlaying) {
-                // Intentar reproducir MP3 primero
-                if (useHtmlAudio && bgAudioElem.src) {
-                    bgAudioElem.play().then(() => {
-                        isAudioPlaying = true;
-                        updateAudioUI(true);
-                    }).catch(err => {
-                        console.warn("Error cargando MP3, ejecutando sintetizador Web Audio API de respaldo:", err);
-                        startWebAudioSynth();
-                    });
-                } else {
-                    startWebAudioSynth();
-                }
-            } else {
-                pauseAudioBackground();
-            }
-        }
-
-        function startWebAudioSynth() {
-            if (!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            }
-
-            mainOsc = audioCtx.createOscillator();
-            subOsc = audioCtx.createOscillator();
-            gainNode = audioCtx.createGain();
-
-            mainOsc.type = 'sine';
-            mainOsc.frequency.setValueAtTime(110, audioCtx.currentTime); // La2
-
-            subOsc.type = 'triangle';
-            subOsc.frequency.setValueAtTime(164.81, audioCtx.currentTime); // Mi3
-
-            gainNode.gain.setValueAtTime(0.001, audioCtx.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.06, audioCtx.currentTime + 2);
-
-            mainOsc.connect(gainNode);
-            subOsc.connect(gainNode);
-            gainNode.connect(audioCtx.destination);
-
-            mainOsc.start();
-            subOsc.start();
-
-            isAudioPlaying = true;
-            updateAudioUI(true);
-        }
-
-        document.getElementById('audio-toggle').addEventListener('click', toggleAudio);
-
-        // --- 8. CARGA Y PROCESAMIENTO DINÁMICO DE ARCHIVO JSON ---
-        document.getElementById('json-input').addEventListener('change', function(e) {
-            const file = e.target.files[0];
+        // CARGA MANUAL DE JSON
+        function cargarJsonManual(event) {
+            const file = event.target.files[0];
             if (!file) return;
 
             const reader = new FileReader();
-            reader.onload = function(event) {
+            reader.onload = function(e) {
                 try {
-                    const parsed = JSON.parse(event.target.result);
-                    if (parsed.bailaores && Array.isArray(parsed.bailaores)) {
-                        currentData = parsed;
-                        
-                        // Si estaba sonando audio previo, pausar y actualizar fuente
-                        if (isAudioPlaying) {
-                            pauseAudioBackground();
-                        }
-                        configureAudioSource();
-
-                        setupCarousel();
-                        renderProyectoYAutor();
-                        alert('¡Datos de contenido.json cargados exitosamente!');
-                    } else {
-                        alert('El archivo JSON debe contener al menos el array "bailaores".');
-                    }
+                    const json = JSON.parse(e.target.result);
+                    currentData = json;
+                    renderizarAplicacion();
+                    alert('Datos cargados dinámicamente desde ' + file.name);
                 } catch (err) {
-                    alert('Error en el formato del JSON: ' + err.message);
+                    alert('Error: El archivo no contiene un JSON válido.');
                 }
             };
             reader.readAsText(file);
-        });
+        }
 
-        // --- INICIALIZACIÓN ---
-        window.addEventListener('DOMContentLoaded', () => {
-            configureAudioSource();
-            setupCarousel();
-            animateCarousel();
-            renderProyectoYAutor();
-        });
+        // RENDERIZADO GLOBAL
+        function renderizarAplicacion() {
+            renderizarCarrusel();
+            renderizarProyecto();
+            renderizarAutor();
+            configurarAudio();
+        }
+
+        // GENERADOR DE IMÁGENES SVG DE FALLBACK SI RUTA ROTA
+        function generarSVGFallback(nombre) {
+            const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1200" viewBox="0 0 800 1200">
+                <rect width="800" height="1200" fill="#141414"/>
+                <circle cx="400" cy="500" r="250" fill="#8B0000" opacity="0.3"/>
+                <text x="50%" y="50%" fill="#D4AF37" font-family="serif" font-size="48" text-anchor="middle" dominant-baseline="middle">${nombre}</text>
+            </svg>`;
+            return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+        }
+
+        // 2. RENDERIZAR Y CONFIGURAR CARRUSEL DESLIZANTE CON BUCLE INFINITO
+        function renderizarCarrusel() {
+            const track = document.getElementById('carousel-track');
+            track.innerHTML = '';
+
+            const bailaores = currentData.bailaores || [];
+            if (bailaores.length === 0) return;
+
+            // Duplicar elementos para efecto seamless infinite loop
+            const items = [...bailaores, ...bailaores, ...bailaores];
+
+            items.forEach((artista, index) => {
+                const card = document.createElement('div');
+                card.className = 'artist-card relative flex-shrink-0 w-[280px] sm:w-[360px] h-[65vh] rounded-2xl overflow-hidden cursor-pointer border border-flamenco-border group transition-all duration-300';
+                card.onclick = () => abrirPanelArtista(artista);
+
+                card.innerHTML = `
+                    <img src="${artista.imagen}" alt="${artista.nombre}" class="w-full h-full object-cover" onerror="this.src=generarSVGFallback('${artista.nombre}');">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent opacity-80 group-hover:opacity-60 transition-opacity"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6 z-10">
+                        <span class="text-flamenco-gold font-cinzel text-xs uppercase tracking-widest block mb-1">${artista.rol || 'Flamenco'}</span>
+                        <h3 class="font-cinzel text-2xl font-bold text-white group-hover:text-flamenco-goldlight transition-colors">${artista.nombre}</h3>
+                    </div>
+                `;
+                track.appendChild(card);
+            });
+
+            configurarEventosDrag();
+        }
+
+        function iniciarCarruselLoop() {
+            const track = document.getElementById('carousel-track');
+            
+            function animate() {
+                if (!isDragging) {
+                    scrollPos -= 0.8; // Velocidad de desplazamiento automático
+                    const maxScroll = track.scrollWidth / 3;
+                    if (Math.abs(scrollPos) >= maxScroll) {
+                        scrollPos = 0;
+                    }
+                    track.style.transform = `translateX(${scrollPos}px)`;
+                }
+                animationFrameId = requestAnimationFrame(animate);
+            }
+            if (animationFrameId) cancelAnimationFrame(animationFrameId);
+            animate();
+        }
+
+        function configurarEventosDrag() {
+            const viewport = document.getElementById('carousel-viewport');
+            const track = document.getElementById('carousel-track');
+
+            viewport.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                startX = e.pageX - scrollPos;
+            });
+
+            viewport.addEventListener('mouseleave', () => { isDragging = false; });
+            viewport.addEventListener('mouseup', () => { isDragging = false; });
+
+            viewport.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+                scrollPos = e.pageX - startX;
+                track.style.transform = `translateX(${scrollPos}px)`;
+            });
+        }
+
+        // 3. APERTURA DE PANEL CON VÍDEOS EN ALTURA IGUALADA Y CONTROL MUTUO DE REPRODUCCIÓN
+        function abrirPanelArtista(artista) {
+            const panel = document.getElementById('panel-artista');
+            panel.classList.remove('hidden');
+
+            document.getElementById('panel-nombre').innerText = artista.nombre;
+            document.getElementById('panel-rol').innerText = artista.rol || '';
+            document.getElementById('panel-descripcion').innerText = artista.descripcion || '';
+
+            // Carga de Vídeos con Autoplay
+            const iframeIA = document.getElementById('iframe-ia');
+            const iframeEntrevista = document.getElementById('iframe-entrevista');
+
+            let urlIA = artista.iaVideo || '';
+            let urlEntrevista = artista.entrevista || '';
+
+            if (urlIA && !urlIA.includes('autoplay=1')) {
+                urlIA += (urlIA.includes('?') ? '&' : '?') + 'autoplay=1&enablejsapi=1';
+            }
+            if (urlEntrevista && !urlEntrevista.includes('enablejsapi=1')) {
+                urlEntrevista += (urlEntrevista.includes('?') ? '&' : '?') + 'enablejsapi=1';
+            }
+
+            iframeIA.src = urlIA;
+            iframeEntrevista.src = urlEntrevista;
+
+            // Renderizar Bento Grid de Noticias
+            const bentoContainer = document.getElementById('bento-noticias');
+            bentoContainer.innerHTML = '';
+
+            const noticias = artista.noticias || [];
+            noticias.forEach(item => {
+                const card = document.createElement('a');
+                card.href = item.url || '#';
+                card.target = "_blank";
+                card.className = "bg-flamenco-card border border-flamenco-border hover:border-flamenco-gold rounded-2xl p-4 flex flex-col justify-between transition-all hover:-translate-y-1";
+                card.innerHTML = `
+                    <div>
+                        <div class="h-40 rounded-xl overflow-hidden mb-4">
+                            <img src="${item.imagen}" class="w-full h-full object-cover" onerror="this.src=generarSVGFallback('Noticia');">
+                        </div>
+                        <span class="text-flamenco-gold text-xs font-cinzel">${item.medio || 'Medio'} · ${item.fecha || ''}</span>
+                        <h4 class="font-cinzel text-white text-base font-bold mt-1">${item.titulo}</h4>
+                    </div>
+                    <div class="mt-4 flex justify-end text-flamenco-gold">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </div>
+                `;
+                bentoContainer.appendChild(card);
+            });
+
+            panel.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function cerrarPanelArtista() {
+            const panel = document.getElementById('panel-artista');
+            panel.classList.add('hidden');
+            document.getElementById('iframe-ia').src = '';
+            document.getElementById('iframe-entrevista').src = '';
+        }
+
+        // 4. RENDERIZAR SECCIÓN PROYECTO
+        function renderizarProyecto() {
+            const proy = currentData.proyecto || {};
+            document.getElementById('proyecto-descripcion').innerText = proy.descripcion || '';
+
+            const bento = document.getElementById('proyecto-recursos-bento');
+            bento.innerHTML = '';
+
+            const recursos = proy.recursos || [];
+            recursos.forEach(rec => {
+                const card = document.createElement('a');
+                card.href = rec.url || '#';
+                card.target = "_blank";
+                card.className = "bg-flamenco-card border border-flamenco-border hover:border-flamenco-gold rounded-2xl p-6 flex flex-col justify-between transition-all hover:-translate-y-1";
+                card.innerHTML = `
+                    <div>
+                        <div class="h-44 rounded-xl overflow-hidden mb-4">
+                            <img src="${rec.imagen}" class="w-full h-full object-cover" onerror="this.src=generarSVGFallback('Proyecto');">
+                        </div>
+                        <h4 class="font-cinzel text-white text-lg font-bold">${rec.titulo}</h4>
+                        <p class="font-playfair text-gray-400 text-sm mt-2">${rec.descripcion || ''}</p>
+                    </div>
+                    <div class="mt-6 flex items-center justify-between text-flamenco-gold font-cinzel text-xs">
+                        <span>Ver Recurso</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                `;
+                bento.appendChild(card);
+            });
+        }
+
+        // 5. RENDERIZAR SECCIÓN AUTOR
+        function renderizarAutor() {
+            const aut = currentData.autor || {};
+            document.getElementById('autor-nombre').innerText = aut.nombre || 'Marco González Cadillo';
+            document.getElementById('autor-titulo').innerText = aut.titulo || 'Investigación y Comunicación Multimedia';
+            document.getElementById('autor-descripcion').innerText = aut.descripcion || '';
+            document.getElementById('autor-img').src = aut.img || '';
+
+            const linksContainer = document.getElementById('autor-links');
+            linksContainer.innerHTML = '';
+
+            const recursos = aut.recursos || [];
+            recursos.forEach(rec => {
+                const btn = document.createElement('a');
+                btn.href = rec.url;
+                btn.target = "_blank";
+                btn.className = "px-5 py-2.5 rounded-full border border-flamenco-gold/40 hover:border-flamenco-gold bg-black/50 text-flamenco-goldlight hover:text-white font-cinzel text-xs tracking-wider transition-all flex items-center gap-2";
+                btn.innerHTML = `<i class="fa-solid fa-link"></i> ${rec.id || 'Portafolio'}`;
+                linksContainer.appendChild(btn);
+            });
+        }
+
+        // 6. GESTIÓN DEL AUDIO AMBIENTAL
+        function configurarAudio() {
+            const audioElem = document.getElementById('audio-ambiente');
+            const sonidoUrl = currentData.configuracion?.sonido || '';
+            if (sonidoUrl) {
+                audioElem.src = sonidoUrl;
+            }
+        }
+
+        function toggleAudio() {
+            const audioElem = document.getElementById('audio-ambiente');
+            const eqIcon = document.getElementById('eq-icon');
+            const staticIcon = document.getElementById('audio-icon-static');
+            const statusText = document.getElementById('audio-status-text');
+
+            if (!isAudioPlaying) {
+                audioElem.play().then(() => {
+                    isAudioPlaying = true;
+                    eqIcon.classList.remove('hidden');
+                    staticIcon.classList.add('hidden');
+                    statusText.innerText = "Música: ON";
+                }).catch(() => {
+                    alert('No se pudo reproducir la pista de audio. Verifique la URL o interacción.');
+                });
+            } else {
+                audioElem.pause();
+                isAudioPlaying = false;
+                eqIcon.classList.add('hidden');
+                staticIcon.classList.remove('hidden');
+                statusText.innerText = "Música: OFF";
+            }
+        }
     </script>
 </body>
 </html>
