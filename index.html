@@ -30,11 +30,11 @@
             }
         }
     </script>
-    <!-- Fuentes Google -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800;900&family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    <!-- FontAwesome para iconos -->
+    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -91,12 +91,12 @@
             background-size: cover;
         }
 
-        /* Diferenciación sutil de capas oscuras */
+        /* Capas oscuras con diferencias sutiles */
         .bg-sec-dark-1 { background-color: #070707; }
         .bg-sec-dark-2 { background-color: #0D0D0D; }
         .bg-sec-dark-3 { background-color: #121212; }
 
-        /* Ecualizador animado para la música */
+        /* Ecualizador animado */
         .eq-bar {
             animation: eqBounce 1.2s ease-in-out infinite alternate;
         }
@@ -107,12 +107,12 @@
             100% { height: 18px; }
         }
 
-        /* Ratio uniforme de reproductores */
+        /* Ratio uniforme y balanceado de reproductores */
         .video-box-equal {
             position: relative;
             width: 100%;
             height: 0;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio equilibrado */
             overflow: hidden;
             border-radius: 0.75rem;
             background-color: #000;
@@ -155,7 +155,7 @@
                 <a href="#autor" class="text-sm uppercase tracking-widest text-gray-300 hover:text-flamenco-gold transition-colors">Acerca de</a>
             </nav>
 
-            <!-- Acciones Header (Audio & Carga JSON) -->
+            <!-- Acciones Header -->
             <div class="flex items-center gap-3">
                 <!-- Botón Música de Fondo -->
                 <button id="btn-audio" onclick="toggleAudio()" class="flex items-center gap-2 px-3 py-1.5 rounded-full border border-flamenco-gold/30 bg-flamenco-card hover:border-flamenco-gold text-xs font-cinzel text-flamenco-goldlight transition-all" title="Activar/Desactivar Música de Fondo">
@@ -178,15 +178,13 @@
         </div>
     </header>
 
-    <!-- HERO SECTION CON PARALLAX Y BUEN CONTRASTE -->
+    <!-- HERO SECTION CON PARALLAX -->
     <section id="inicio" class="relative w-full h-screen flex items-center justify-center overflow-hidden bg-sec-dark-1">
-        <!-- Fondo Parallax con Gradiente de Alto Contraste -->
         <div class="absolute inset-0 parallax-bg z-0 opacity-40 scale-105 transition-transform duration-700" style="background-image: url('https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=1920&auto=format&fit=crop');"></div>
         <div class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/40 z-10"></div>
         
-        <!-- Contenido Hero -->
         <div class="relative z-20 max-w-5xl mx-auto px-6 text-center">
-            <p class="font-cinzel text-flamenco-gold tracking-[0.3em] text-sm sm:text-base uppercase mb-4 animate-fade-in">Un viaje a las raíces del flamenco en Granada</p>
+            <p class="font-cinzel text-flamenco-gold tracking-[0.3em] text-sm sm:text-base uppercase mb-4">Un viaje a las raíces del flamenco en Granada</p>
             <h1 class="font-cinzel text-4xl sm:text-6xl md:text-7xl font-extrabold text-white tracking-wide mb-6 drop-shadow-lg">
                 HIJOS DEL <span class="text-transparent bg-clip-text bg-gradient-to-r from-flamenco-gold via-yellow-200 to-flamenco-gold">SACROMONTE</span>
             </h1>
@@ -194,7 +192,7 @@
                 Rescatando la memoria viva, el compás inmaterial y la herencia centenaria de las figuras legendarias de las cuevas del Sacromonte.
             </p>
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a href="#artistas" class="w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-to-r from-flamenco-red to-red-900 hover:from-red-700 hover:to-flamenco-red text-white font-cinzel text-sm font-bold tracking-widest shadow-lg hover:shadow-flamenco-red/30 transition-all transform hover:-translate-y-0.5">
+                <a href="#artistas" class="w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-to-r from-flamenco-red to-red-900 hover:from-red-700 hover:to-flamenco-red text-white font-cinzel text-sm font-bold tracking-widest shadow-lg transition-all transform hover:-translate-y-0.5">
                     EXPLORAR ARTISTAS
                 </a>
                 <a href="#proyecto" class="w-full sm:w-auto px-8 py-4 rounded-full border border-flamenco-gold/50 hover:border-flamenco-gold bg-black/40 text-flamenco-goldlight hover:text-white font-cinzel text-sm tracking-widest transition-all">
@@ -204,17 +202,16 @@
         </div>
     </section>
 
-    <!-- GALERÍA DE ARTISTAS: CARRUSEL PANTALLA COMPLETA 100VW X 100VH -->
+    <!-- GALERÍA DE ARTISTAS: CARRUSEL RESPONSIVE BUCLE INFINITO CONTINUO -->
     <section id="artistas" class="relative w-screen h-screen bg-sec-dark-2 overflow-hidden flex flex-col justify-center border-y border-flamenco-border/30">
         <div class="absolute top-8 left-8 z-20 pointer-events-none">
             <h2 class="font-cinzel text-2xl sm:text-3xl font-bold text-white tracking-widest">FIGURAS <span class="text-flamenco-gold">DESTACADAS</span></h2>
             <p class="font-playfair text-xs sm:text-sm text-gray-400 italic">Desliza con el ratón o arrastra para mover la galería</p>
         </div>
 
-        <!-- Contenedor del Carrusel Interactivo Drag/Auto -->
         <div id="carousel-viewport" class="w-full h-[75vh] overflow-hidden flex items-center relative z-10 cursor-grab active:cursor-grabbing">
             <div id="carousel-track" class="infinite-carousel-wrapper flex gap-6 px-6">
-                <!-- Se inyectan dinámicamente las tarjetas de artistas -->
+                <!-- Se inyectan las tarjetas de artistas -->
             </div>
         </div>
     </section>
@@ -233,10 +230,10 @@
             </div>
 
             <p id="panel-descripcion" class="font-playfair text-lg text-gray-300 italic mb-12 max-w-4xl leading-relaxed">
-                Descripción detallada del artista...
+                Descripción del artista...
             </p>
 
-            <!-- Sección de Vídeos Integrados con la Misma Altura -->
+            <!-- Vídeos de YouTube integrados con Control de Exclusividad Mutua por YouTube API -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
                 <!-- Vídeo IA -->
                 <div class="bg-flamenco-card p-6 rounded-2xl border border-flamenco-border">
@@ -244,9 +241,8 @@
                         <i class="fa-solid fa-robot text-flamenco-gold text-xl"></i>
                         <h3 class="font-cinzel text-lg font-bold text-white">Reconstrucción & Avatar IA</h3>
                     </div>
-                    <!-- Ratio 16:9 Adaptado para Nivelar Alturas -->
                     <div class="video-box-equal">
-                        <iframe id="iframe-ia" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                        <div id="player-ia-container" class="w-full h-full"></div>
                     </div>
                 </div>
 
@@ -256,9 +252,8 @@
                         <i class="fa-solid fa-video text-flamenco-gold text-xl"></i>
                         <h3 class="font-cinzel text-lg font-bold text-white">Entrevista Documental</h3>
                     </div>
-                    <!-- Ratio 16:9 Adaptado para Nivelar Alturas -->
                     <div class="video-box-equal">
-                        <iframe id="iframe-entrevista" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                        <div id="player-entrevista-container" class="w-full h-full"></div>
                     </div>
                 </div>
             </div>
@@ -266,11 +261,11 @@
             <!-- Bento Grid de Noticias / Recursos del Artista -->
             <div class="mt-8">
                 <h3 class="font-cinzel text-xl font-bold text-white mb-6 flex items-center gap-2">
-                    <i class="fa-solid fa-[#D4AF37] fa-newspaper text-flamenco-gold"></i>
+                    <i class="fa-solid fa-newspaper text-flamenco-gold"></i>
                     Recursos y Cobertura en Medios
                 </h3>
                 <div id="bento-noticias" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Se inyectan las cards Bento -->
+                    <!-- Cards Bento -->
                 </div>
             </div>
         </div>
@@ -287,9 +282,9 @@
                 </p>
             </div>
 
-            <!-- Bento Grid de Recursos Generales del Proyecto -->
+            <!-- Bento Grid de Recursos del Proyecto -->
             <div id="proyecto-recursos-bento" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Se inyecta dinámicamente desde JSON -->
+                <!-- Inyectado desde autoload.json -->
             </div>
         </div>
     </section>
@@ -332,9 +327,12 @@
         </div>
     </footer>
 
-    <!-- LÓGICA JAVASCRIPT DINÁMICA -->
+    <!-- CARGA DE API IFRAME YOUTUBE -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+
+    <!-- APLICACIÓN JAVASCRIPT DINÁMICA -->
     <script>
-        // DATOS POR DEFECTO
+        // DATOS POR DEFECTO EN CASO DE NO HALLAR AUTOLOAD.JSON
         const defaultData = {
             "bailaores": [
                 {
@@ -426,37 +424,44 @@
 
         let currentData = { ...defaultData };
         let isAudioPlaying = false;
-        let audioContext = null;
 
-        // BUCLE INFINITO JS PARA EL CARRUSEL
+        // OBJETOS REPRODUCTORES DE YOUTUBE PARA CONTROL MUTUO
+        let ytPlayerIA = null;
+        let ytPlayerEntrevista = null;
+        let ytApiReady = false;
+
+        // BUCLE INFINITO JS CARRUSEL
         let scrollPos = 0;
         let isDragging = false;
         let startX = 0;
-        let currentTranslate = 0;
         let animationFrameId = null;
 
         // INICIALIZACIÓN
         document.addEventListener('DOMContentLoaded', async () => {
-            await intentarCargaAutoloadJSON();
+            await cargarAutoloadJSON();
             renderizarAplicacion();
             iniciarCarruselLoop();
         });
 
-        // 1. CARGA AUTOMÁTICA DE autoload.json SI EXISTE
-        async function intentarCargaAutoloadJSON() {
+        function onYouTubeIframeAPIReady() {
+            ytApiReady = true;
+        }
+
+        // 1. CARGA DINÁMICA DE AUTOLOAD.JSON
+        async function cargarAutoloadJSON() {
             try {
-                const response = await fetch('./autoload.json');
-                if (response.ok) {
-                    const data = await response.json();
+                const res = await fetch('./autoload.json');
+                if (res.ok) {
+                    const data = await res.json();
                     currentData = data;
-                    console.log('Fichero autoload.json cargado dinámicamente con éxito.');
+                    console.log('Fichero autoload.json cargado con éxito.');
                 }
             } catch (err) {
-                console.log('No se encontró autoload.json local, utilizando datos iniciales por defecto.');
+                console.log('Usando datos locales por defecto.');
             }
         }
 
-        // CARGA MANUAL DE JSON
+        // CARGA MANUAL DE FICHERO JSON
         function cargarJsonManual(event) {
             const file = event.target.files[0];
             if (!file) return;
@@ -467,15 +472,15 @@
                     const json = JSON.parse(e.target.result);
                     currentData = json;
                     renderizarAplicacion();
-                    alert('Datos cargados dinámicamente desde ' + file.name);
+                    alert('Fichero JSON cargado correctamente.');
                 } catch (err) {
-                    alert('Error: El archivo no contiene un JSON válido.');
+                    alert('Error: Formato JSON no válido.');
                 }
             };
             reader.readAsText(file);
         }
 
-        // RENDERIZADO GLOBAL
+        // RENDERIZADO GLOBAL DE LA APLICACIÓN
         function renderizarAplicacion() {
             renderizarCarrusel();
             renderizarProyecto();
@@ -483,17 +488,17 @@
             configurarAudio();
         }
 
-        // GENERADOR DE IMÁGENES SVG DE FALLBACK SI RUTA ROTA
-        function generarSVGFallback(nombre) {
+        // FALLBACK SVG PARA IMÁGENES ROTAS
+        function generarSVGFallback(texto) {
             const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1200" viewBox="0 0 800 1200">
                 <rect width="800" height="1200" fill="#141414"/>
                 <circle cx="400" cy="500" r="250" fill="#8B0000" opacity="0.3"/>
-                <text x="50%" y="50%" fill="#D4AF37" font-family="serif" font-size="48" text-anchor="middle" dominant-baseline="middle">${nombre}</text>
+                <text x="50%" y="50%" fill="#D4AF37" font-family="serif" font-size="44" text-anchor="middle" dominant-baseline="middle">${texto}</text>
             </svg>`;
             return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
         }
 
-        // 2. RENDERIZAR Y CONFIGURAR CARRUSEL DESLIZANTE CON BUCLE INFINITO
+        // 2. GALERÍA DE ARTISTAS: CARRUSEL CONTINUO INFINITO Y ARRASTRABLE
         function renderizarCarrusel() {
             const track = document.getElementById('carousel-track');
             track.innerHTML = '';
@@ -504,7 +509,7 @@
             // Duplicar elementos para efecto seamless infinite loop
             const items = [...bailaores, ...bailaores, ...bailaores];
 
-            items.forEach((artista, index) => {
+            items.forEach((artista) => {
                 const card = document.createElement('div');
                 card.className = 'artist-card relative flex-shrink-0 w-[280px] sm:w-[360px] h-[65vh] rounded-2xl overflow-hidden cursor-pointer border border-flamenco-border group transition-all duration-300';
                 card.onclick = () => abrirPanelArtista(artista);
@@ -528,7 +533,7 @@
             
             function animate() {
                 if (!isDragging) {
-                    scrollPos -= 0.8; // Velocidad de desplazamiento automático
+                    scrollPos -= 0.8;
                     const maxScroll = track.scrollWidth / 3;
                     if (Math.abs(scrollPos) >= maxScroll) {
                         scrollPos = 0;
@@ -561,7 +566,14 @@
             });
         }
 
-        // 3. APERTURA DE PANEL CON VÍDEOS EN ALTURA IGUALADA Y CONTROL MUTUO DE REPRODUCCIÓN
+        // EXTRAER ID DE YOUTUBE DESDE EMBED O URL ESTÁNDAR
+        function extraerYouTubeId(url) {
+            if (!url) return '';
+            const match = url.match(/(?:embed\/|v=|v\/|vi\/|youtu\.be\/|\/v\/)([^#&?]*)/);
+            return (match && match[1]) ? match[1] : url;
+        }
+
+        // 3. APERTURA DEL PANEL Y CONTROL DE EXCLUSIVIDAD MUTUA DE VÍDEOS
         function abrirPanelArtista(artista) {
             const panel = document.getElementById('panel-artista');
             panel.classList.remove('hidden');
@@ -570,24 +582,54 @@
             document.getElementById('panel-rol').innerText = artista.rol || '';
             document.getElementById('panel-descripcion').innerText = artista.descripcion || '';
 
-            // Carga de Vídeos con Autoplay
-            const iframeIA = document.getElementById('iframe-ia');
-            const iframeEntrevista = document.getElementById('iframe-entrevista');
+            const idIA = extraerYouTubeId(artista.iaVideo);
+            const idEntrevista = extraerYouTubeId(artista.entrevista);
 
-            let urlIA = artista.iaVideo || '';
-            let urlEntrevista = artista.entrevista || '';
+            // Destruir reproductores anteriores si existen
+            if (ytPlayerIA) { ytPlayerIA.destroy(); ytPlayerIA = null; }
+            if (ytPlayerEntrevista) { ytPlayerEntrevista.destroy(); ytPlayerEntrevista = null; }
 
-            if (urlIA && !urlIA.includes('autoplay=1')) {
-                urlIA += (urlIA.includes('?') ? '&' : '?') + 'autoplay=1&enablejsapi=1';
-            }
-            if (urlEntrevista && !urlEntrevista.includes('enablejsapi=1')) {
-                urlEntrevista += (urlEntrevista.includes('?') ? '&' : '?') + 'enablejsapi=1';
-            }
+            // Recrear contenedores para la API
+            document.getElementById('player-ia-container').innerHTML = '<div id="yt-ia-element"></div>';
+            document.getElementById('player-entrevista-container').innerHTML = '<div id="yt-entrevista-element"></div>';
 
-            iframeIA.src = urlIA;
-            iframeEntrevista.src = urlEntrevista;
+            // Crear Reproductor IA con Autoplay
+            ytPlayerIA = new YT.Player('yt-ia-element', {
+                height: '100%',
+                width: '100%',
+                videoId: idIA,
+                playerVars: { 'autoplay': 1, 'enablejsapi': 1, 'rel': 0 },
+                events: {
+                    'onStateChange': (e) => {
+                        // Si el vídeo IA empieza a reproducirse (PLAYING = 1), se pausa la Entrevista
+                        if (e.data === YT.PlayerState.PLAYING) {
+                            if (ytPlayerEntrevista && typeof ytPlayerEntrevista.pauseVideo === 'function') {
+                                ytPlayerEntrevista.pauseVideo();
+                            }
+                        }
+                    }
+                }
+            });
 
-            // Renderizar Bento Grid de Noticias
+            // Crear Reproductor Entrevista
+            ytPlayerEntrevista = new YT.Player('yt-entrevista-element', {
+                height: '100%',
+                width: '100%',
+                videoId: idEntrevista,
+                playerVars: { 'autoplay': 0, 'enablejsapi': 1, 'rel': 0 },
+                events: {
+                    'onStateChange': (e) => {
+                        // Si el vídeo Entrevista empieza a reproducirse (PLAYING = 1), se pausa el vídeo IA
+                        if (e.data === YT.PlayerState.PLAYING) {
+                            if (ytPlayerIA && typeof ytPlayerIA.pauseVideo === 'function') {
+                                ytPlayerIA.pauseVideo();
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Renderizar Bento Grid de Noticias/Recursos del Artista
             const bentoContainer = document.getElementById('bento-noticias');
             bentoContainer.innerHTML = '';
 
@@ -618,8 +660,8 @@
         function cerrarPanelArtista() {
             const panel = document.getElementById('panel-artista');
             panel.classList.add('hidden');
-            document.getElementById('iframe-ia').src = '';
-            document.getElementById('iframe-entrevista').src = '';
+            if (ytPlayerIA) { ytPlayerIA.destroy(); ytPlayerIA = null; }
+            if (ytPlayerEntrevista) { ytPlayerEntrevista.destroy(); ytPlayerEntrevista = null; }
         }
 
         // 4. RENDERIZAR SECCIÓN PROYECTO
@@ -675,7 +717,7 @@
             });
         }
 
-        // 6. GESTIÓN DEL AUDIO AMBIENTAL
+        // 6. CONTROL DEL AUDIO AMBIENTAL
         function configurarAudio() {
             const audioElem = document.getElementById('audio-ambiente');
             const sonidoUrl = currentData.configuracion?.sonido || '';
@@ -697,7 +739,7 @@
                     staticIcon.classList.add('hidden');
                     statusText.innerText = "Música: ON";
                 }).catch(() => {
-                    alert('No se pudo reproducir la pista de audio. Verifique la URL o interacción.');
+                    alert('Por favor interactúe con la página antes de activar la música.');
                 });
             } else {
                 audioElem.pause();
