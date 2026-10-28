@@ -20,10 +20,16 @@
 
       },
       {
-        "id": "yooutube",
+        "id": "youtube",
         "url": "https://www.instagram.com/marco_gonzales_c/"
 
+      },
+      {
+        "id": "linkedIn",
+        "url": "https://www.linkedin.com/in/marcogonzalesperiodistadigital/?isSelfProfile=true"
+
       }
+
     ],
      "formacion": [
       {
@@ -48,9 +54,9 @@
       },
       {
         "id": "alh",
-        "url": "https://www.instagram.com/marco_gonzales_c/",
+        "url": "https://depict-film-58121399.figma.site/",
         "titulo": "Cuentos de la alhambra",
-        "imagen": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1280px-Instagram_logo_2022.svg.png?utm_source=es.wikipedia.org&utm_campaign=index&utm_content=thumbnail"
+        "imagen": "http://localhost:8443/src/assets/logo.svg"
       }
     ]
   }
