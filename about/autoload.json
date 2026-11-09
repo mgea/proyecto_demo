@@ -50,13 +50,13 @@
         "id": "hs",
         "url": "./../index.html",
         "titulo": "Hijos del Sacromonte",
-        "imagen": "https://images.unsplash.com/photo-1547153760-18fc86324498?q=80&w=400&auto=format&fit=crop"
+        "imagen": "./img/logo_hijo_sacromonte.png"
       },
       {
         "id": "alh",
         "url": "https://depict-film-58121399.figma.site/",
         "titulo": "Cuentos de la alhambra",
-        "imagen": "http://localhost:8443/src/assets/logo.svg"
+        "imagen": "./img/logo_alhambra.png"
       }
     ]
   }
