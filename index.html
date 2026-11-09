@@ -30,13 +30,15 @@
             }
         }
     </script>
-    <!-- Google Fonts -->
+    <!-- Fuentes Google -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800;900&family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <!-- API YouTube Iframe -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+
     <style>
         body {
             background-color: #0A0A0A;
@@ -45,23 +47,14 @@
             overflow-x: hidden;
         }
 
-        /* Scrollbar custom */
         ::-webkit-scrollbar {
             width: 8px;
             height: 8px;
         }
-        ::-webkit-scrollbar-track {
-            background: #0A0A0A;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #2A2A2A;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #D4AF37;
-        }
+        ::-webkit-scrollbar-track { background: #0A0A0A; }
+        ::-webkit-scrollbar-thumb { background: #2A2A2A; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #D4AF37; }
 
-        /* Hover efects en tarjetas de artista */
         .artist-card img {
             filter: grayscale(100%);
             transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), filter 0.6s ease;
@@ -71,7 +64,6 @@
             transform: scale(1.08);
         }
 
-        /* Carousel Wrapper */
         .infinite-carousel-wrapper {
             display: flex;
             width: max-content;
@@ -83,7 +75,6 @@
             cursor: grabbing;
         }
 
-        /* Parallax */
         .parallax-bg {
             background-attachment: fixed;
             background-position: center;
@@ -91,12 +82,10 @@
             background-size: cover;
         }
 
-        /* Fondos diferenciados */
         .bg-sec-dark-1 { background-color: #070707; }
         .bg-sec-dark-2 { background-color: #0D0D0D; }
         .bg-sec-dark-3 { background-color: #121212; }
 
-        /* Ecualizador animación */
         .eq-bar {
             animation: eqBounce 1.2s ease-in-out infinite alternate;
         }
@@ -117,7 +106,6 @@
     <header class="fixed top-0 left-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-flamenco-border/40 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             
-            <!-- Logo -->
             <a href="#inicio" class="flex items-center gap-3 group">
                 <div class="w-10 h-10 rounded-full border border-flamenco-gold/50 flex items-center justify-center bg-flamenco-red/20 group-hover:border-flamenco-gold transition-colors">
                     <span class="font-cinzel text-flamenco-gold font-bold text-xl">S</span>
@@ -128,7 +116,6 @@
                 </div>
             </a>
 
-            <!-- Enlaces de Navegación -->
             <nav class="hidden md:flex items-center space-x-8">
                 <a href="#inicio" class="text-sm uppercase tracking-widest text-gray-300 hover:text-flamenco-gold transition-colors">Inicio</a>
                 <a href="#artistas" class="text-sm uppercase tracking-widest text-gray-300 hover:text-flamenco-gold transition-colors">Artistas</a>
@@ -136,10 +123,8 @@
                 <a href="#autor" class="text-sm uppercase tracking-widest text-gray-300 hover:text-flamenco-gold transition-colors">Acerca de</a>
             </nav>
 
-            <!-- Acciones Header -->
             <div class="flex items-center gap-3">
-                <!-- Botón Música de Fondo -->
-                <button id="btn-audio" onclick="toggleAudio()" class="flex items-center gap-2 px-3 py-1.5 rounded-full border border-flamenco-gold/30 bg-flamenco-card hover:border-flamenco-gold text-xs font-cinzel text-flamenco-goldlight transition-all" title="Activar/Desactivar Música de Fondo">
+                <button id="btn-audio" onclick="toggleAudioUsuario()" class="flex items-center gap-2 px-3 py-1.5 rounded-full border border-flamenco-gold/30 bg-flamenco-card hover:border-flamenco-gold text-xs font-cinzel text-flamenco-goldlight transition-all" title="Activar/Desactivar Música de Fondo">
                     <div id="eq-icon" class="flex items-end gap-0.5 h-4 w-4 hidden">
                         <span class="eq-bar w-1 bg-flamenco-gold rounded-t"></span>
                         <span class="eq-bar w-1 bg-flamenco-gold rounded-t"></span>
@@ -149,7 +134,6 @@
                     <span id="audio-status-text">Música: OFF</span>
                 </button>
 
-                <!-- Cargar JSON Personalizado -->
                 <label for="json-input" class="cursor-pointer flex items-center gap-2 px-3 py-1.5 rounded-full bg-flamenco-red/80 hover:bg-flamenco-red text-white text-xs font-cinzel tracking-wider transition-colors">
                     <i class="fa-solid fa-file-code"></i>
                     <span class="hidden sm:inline">Cargar JSON</span>
@@ -159,7 +143,7 @@
         </div>
     </header>
 
-    <!-- HERO SECTION CON PARALLAX -->
+    <!-- HERO SECTION -->
     <section id="inicio" class="relative w-full h-screen flex items-center justify-center overflow-hidden bg-sec-dark-1">
         <div class="absolute inset-0 parallax-bg z-0 opacity-40 scale-105 transition-transform duration-700" style="background-image: url('https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=1920&auto=format&fit=crop');"></div>
         <div class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/40 z-10"></div>
@@ -173,7 +157,7 @@
                 Rescatando la memoria viva, el compás inmaterial y la herencia centenaria de las figuras legendarias de las cuevas del Sacromonte.
             </p>
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a href="#artistas" class="w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-to-r from-flamenco-red to-red-900 hover:from-red-700 hover:to-flamenco-red text-white font-cinzel text-sm font-bold tracking-widest shadow-lg transition-all transform hover:-translate-y-0.5">
+                <a href="#artistas" class="w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-to-r from-flamenco-red to-red-900 hover:from-red-700 hover:to-flamenco-red text-white font-cinzel text-sm font-bold tracking-widest shadow-lg hover:shadow-flamenco-red/30 transition-all">
                     EXPLORAR ARTISTAS
                 </a>
                 <a href="#proyecto" class="w-full sm:w-auto px-8 py-4 rounded-full border border-flamenco-gold/50 hover:border-flamenco-gold bg-black/40 text-flamenco-goldlight hover:text-white font-cinzel text-sm tracking-widest transition-all">
@@ -183,7 +167,7 @@
         </div>
     </section>
 
-    <!-- GALERÍA DE ARTISTAS: CARRUSEL RESPONSIVE BUCLE INFINITO CONTINUO -->
+    <!-- GALERÍA DE ARTISTAS -->
     <section id="artistas" class="relative w-screen h-screen bg-sec-dark-2 overflow-hidden flex flex-col justify-center border-y border-flamenco-border/30">
         <div class="absolute top-8 left-8 z-20 pointer-events-none">
             <h2 class="font-cinzel text-2xl sm:text-3xl font-bold text-white tracking-widest">FIGURAS <span class="text-flamenco-gold">DESTACADAS</span></h2>
@@ -191,13 +175,11 @@
         </div>
 
         <div id="carousel-viewport" class="w-full h-[75vh] overflow-hidden flex items-center relative z-10 cursor-grab active:cursor-grabbing">
-            <div id="carousel-track" class="infinite-carousel-wrapper flex gap-6 px-6">
-                <!-- Tarjetas de artistas -->
-            </div>
+            <div id="carousel-track" class="infinite-carousel-wrapper flex gap-6 px-6"></div>
         </div>
     </section>
 
-    <!-- PANEL INFERIOR INTERACTIVO DEL ARTISTA SELECCIONADO -->
+    <!-- PANEL INFERIOR INTERACTIVO DEL ARTISTA -->
     <section id="panel-artista" class="hidden relative w-full bg-sec-dark-3 py-16 border-b border-flamenco-border/50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-start mb-8 border-b border-flamenco-border pb-4">
@@ -205,62 +187,60 @@
                     <span id="panel-rol" class="text-flamenco-gold text-xs font-cinzel uppercase tracking-widest block mb-1">Maestro & Leyenda</span>
                     <h2 id="panel-nombre" class="font-cinzel text-3xl sm:text-5xl font-bold text-white">Nombre del Artista</h2>
                 </div>
-                <button onclick="cerrarPanelArtista()" class="text-gray-400 hover:text-white text-2xl p-2 transition-colors">
+                <button onclick="cerrarPanelArtista()" class="text-gray-400 hover:text-white text-2xl p-2 transition-colors" title="Cerrar Panel">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
 
             <p id="panel-descripcion" class="font-playfair text-lg text-gray-300 italic mb-12 max-w-4xl leading-relaxed">
-                Descripción del artista...
+                Descripción detallada del artista...
             </p>
 
-            <!-- VÍDEOS DE YOUTUBE: PROPORCIONES PROPORCIONALES (9:16 Y 16:9) A LA MISMA ALTURA + RETRATO EN B/N EN lg: -->
-            <div class="bg-flamenco-card p-6 sm:p-8 rounded-2xl border border-flamenco-border mb-16 shadow-2xl">
-                <div class="flex flex-col lg:flex-row items-center justify-center gap-8">
-                    
-                    <!-- Imagen de la cantante en B/N (Sólo en Viewports Grandes lg: o superior) -->
-                    <div class="hidden lg:block w-72 h-[360px] sm:h-[400px] flex-shrink-0 rounded-xl overflow-hidden border border-flamenco-gold/40 relative group shadow-lg">
-                        <img id="panel-artista-img-lg" src="" alt="Artista" class="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 transition-all duration-700">
+            <!-- Sección de Vídeos e Imagen Adaptativa -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16 items-center">
+                
+                <!-- Tarjeta Foto en Blanco y Negro (Sólo Pantallas Grandes lg:) -->
+                <div class="hidden lg:block lg:col-span-3">
+                    <div class="h-[360px] sm:h-[400px] rounded-2xl overflow-hidden border border-flamenco-gold/40 shadow-2xl relative">
+                        <img id="panel-foto-artista" src="" alt="Artista" class="w-full h-full object-cover grayscale">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-                        <div class="absolute bottom-4 left-4 right-4 text-center">
-                            <span class="font-cinzel text-xs text-flamenco-gold uppercase tracking-widest block">Retrato Inmortal</span>
+                    </div>
+                </div>
+
+                <!-- Reproductor IA Vertical 9:16 Manteniendo Proporción -->
+                <div class="lg:col-span-4 bg-flamenco-card p-4 sm:p-6 rounded-2xl border border-flamenco-border">
+                    <div class="flex items-center gap-3 mb-4">
+                        <i class="fa-solid fa-robot text-flamenco-gold text-xl"></i>
+                        <h3 class="font-cinzel text-base sm:text-lg font-bold text-white">Reconstrucción IA (9:16)</h3>
+                    </div>
+                    <div class="h-[360px] sm:h-[400px] w-full flex justify-center items-center bg-black rounded-xl overflow-hidden">
+                        <div class="h-full aspect-[9/16] max-w-full">
+                            <div id="player-ia" class="w-full h-full"></div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Contenedor Vídeo IA Vertical (Aspect ratio 9:16 con altura fija proporcional) -->
-                    <div class="flex flex-col items-center flex-shrink-0 w-full sm:w-auto">
-                        <div class="flex items-center gap-2 mb-3 w-full text-left">
-                            <i class="fa-solid fa-robot text-flamenco-gold text-sm"></i>
-                            <h3 class="font-cinzel text-sm font-bold text-white tracking-wider">Reconstrucción & Avatar IA (Vertical)</h3>
-                        </div>
-                        <div class="h-[360px] sm:h-[400px] aspect-[9/16] bg-black rounded-xl overflow-hidden border border-flamenco-border relative shadow-md">
-                            <div id="player-ia-container" class="w-full h-full"></div>
+                <!-- Entrevista Documental 16:9 -->
+                <div class="lg:col-span-5 bg-flamenco-card p-4 sm:p-6 rounded-2xl border border-flamenco-border">
+                    <div class="flex items-center gap-3 mb-4">
+                        <i class="fa-solid fa-video text-flamenco-gold text-xl"></i>
+                        <h3 class="font-cinzel text-base sm:text-lg font-bold text-white">Entrevista Documental (16:9)</h3>
+                    </div>
+                    <div class="h-[360px] sm:h-[400px] w-full flex justify-center items-center bg-black rounded-xl overflow-hidden">
+                        <div class="w-full aspect-[16/9] max-h-full">
+                            <div id="player-entrevista" class="w-full h-full"></div>
                         </div>
                     </div>
-
-                    <!-- Contenedor Vídeo Entrevista Horizontal (Aspect ratio 16:9 con altura fija proporcional) -->
-                    <div class="flex flex-col items-center flex-grow w-full">
-                        <div class="flex items-center gap-2 mb-3 w-full text-left">
-                            <i class="fa-solid fa-video text-flamenco-gold text-sm"></i>
-                            <h3 class="font-cinzel text-sm font-bold text-white tracking-wider">Entrevista Documental (Horizontal)</h3>
-                        </div>
-                        <div class="h-[360px] sm:h-[400px] aspect-[16/9] w-full max-w-full bg-black rounded-xl overflow-hidden border border-flamenco-border relative shadow-md">
-                            <div id="player-entrevista-container" class="w-full h-full"></div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
 
-            <!-- Bento Grid de Noticias / Recursos del Artista -->
+            <!-- Bento Grid de Noticias -->
             <div class="mt-8">
                 <h3 class="font-cinzel text-xl font-bold text-white mb-6 flex items-center gap-2">
                     <i class="fa-solid fa-newspaper text-flamenco-gold"></i>
                     Recursos y Cobertura en Medios
                 </h3>
-                <div id="bento-noticias" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Cards Bento -->
-                </div>
+                <div id="bento-noticias" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
             </div>
         </div>
     </section>
@@ -271,15 +251,9 @@
             <div class="max-w-3xl mb-16">
                 <span class="text-flamenco-gold font-cinzel text-xs uppercase tracking-widest block mb-2">Contexto Histórico e Ideación</span>
                 <h2 class="font-cinzel text-3xl sm:text-5xl font-bold text-white mb-6">EL PROYECTO</h2>
-                <p id="proyecto-descripcion" class="font-playfair text-gray-300 text-lg leading-relaxed italic">
-                    Cargando información del proyecto...
-                </p>
+                <p id="proyecto-descripcion" class="font-playfair text-gray-300 text-lg leading-relaxed italic"></p>
             </div>
-
-            <!-- Bento Grid de Recursos del Proyecto -->
-            <div id="proyecto-recursos-bento" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Inyectado desde autoload.json -->
-            </div>
+            <div id="proyecto-recursos-bento" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
         </div>
     </section>
 
@@ -295,12 +269,8 @@
                 <div class="md:col-span-8">
                     <span id="autor-titulo" class="text-flamenco-gold font-cinzel text-xs uppercase tracking-widest block mb-2">Investigación y Comunicación Multimedia</span>
                     <h2 id="autor-nombre" class="font-cinzel text-3xl sm:text-4xl font-bold text-white mb-4">Marco González Cadillo</h2>
-                    <p id="autor-descripcion" class="font-playfair text-gray-300 italic text-base sm:text-lg mb-8 leading-relaxed">
-                        Cargando información del autor...
-                    </p>
-                    <div id="autor-links" class="flex flex-wrap gap-4">
-                        <!-- Enlaces del autor -->
-                    </div>
+                    <p id="autor-descripcion" class="font-playfair text-gray-300 italic text-base sm:text-lg mb-8 leading-relaxed"></p>
+                    <div id="autor-links" class="flex flex-wrap gap-4"></div>
                 </div>
             </div>
         </div>
@@ -321,12 +291,8 @@
         </div>
     </footer>
 
-    <!-- CARGA DE API IFRAME YOUTUBE -->
-    <script src="https://www.youtube.com/iframe_api"></script>
-
-    <!-- APLICACIÓN JAVASCRIPT DINÁMICA -->
+    <!-- LÓGICA JAVASCRIPT -->
     <script>
-        // DATOS POR DEFECTO SI NO EXISTE AUTOLOAD.JSON
         const defaultData = {
             "bailaores": [
                 {
@@ -335,8 +301,8 @@
                     "rol": "Maestra & Bailaora de Leyenda",
                     "descripcion": "María Guardia Gómez, conocida históricamente como Mariquilla, es una de las grandes bailaores de Granada. Hija de la cantaora y bailaora María, desde su cuna en el Sacromonte hasta las giras internacionales, Mariquilla encarna la elegancia, el temperamento sobrio y la maestría en el braceo que definió la escuela flamenca granadina.",
                     "wixUrl": "https://hijosdelsacromonte.wixsite.com/hijos-del-sacromonte/blank",
-                    "iaVideo": "https://www.youtube.com/embed/JU5ME6Q5xRU",
-                    "entrevista": "https://www.youtube.com/embed/oLf7NE8LTdo",
+                    "iaVideo": "JU5ME6Q5xRU",
+                    "entrevista": "oLf7NE8LTdo",
                     "imagen": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=800&auto=format&fit=crop",
                     "noticias": [
                         {
@@ -354,8 +320,8 @@
                     "rol": "Matriarca & Leyenda de la Cueva",
                     "descripcion": "María Cortés Heredia, 'María la Canastera', es el alma inmortal del Sacromonte. Su cueva fue epicentro cultural internacional por donde desfilaron artistas, diplomáticos y amantes del arte para presenciar la zambra pura y el legado viviente del pueblo gitano.",
                     "wixUrl": "https://hijosdelsacromonte.wixsite.com/hijos-del-sacromonte/blank-1",
-                    "iaVideo": "https://www.youtube.com/embed/JU5ME6Q5xRU",
-                    "entrevista": "https://www.youtube.com/embed/oLf7NE8LTdo",
+                    "iaVideo": "JU5ME6Q5xRU",
+                    "entrevista": "oLf7NE8LTdo",
                     "imagen": "https://images.unsplash.com/photo-1518834107812-67b0b7c58434?q=80&w=800&auto=format&fit=crop",
                     "noticias": [
                         {
@@ -373,8 +339,8 @@
                     "rol": "Maestro del Baile Masculino",
                     "descripcion": "Manuel Santiago Maya, conocido universalmente como 'Manolete'. Referente indiscutible del baile flamenco masculino por la sobriedad de sus pases, el señorío en escena y la elegancia rítmica transmitida directamente de la casta sacromontana.",
                     "wixUrl": "https://hijosdelsacromonte.wixsite.com/hijos-del-sacromonte/blank-2",
-                    "iaVideo": "https://www.youtube.com/embed/JU5ME6Q5xRU",
-                    "entrevista": "https://www.youtube.com/embed/oLf7NE8LTdo",
+                    "iaVideo": "JU5ME6Q5xRU",
+                    "entrevista": "oLf7NE8LTdo",
                     "imagen": "https://images.unsplash.com/photo-1547153760-18fc86324498?q=80&w=800&auto=format&fit=crop",
                     "noticias": [
                         {
@@ -418,57 +384,57 @@
 
         let currentData = { ...defaultData };
         let isAudioPlaying = false;
+        let musicaPreviamenteActivada = false; // Guarda la preferencia del usuario antes de reproducir vídeos
 
-        // OBJETOS REPRODUCTORES DE YOUTUBE PARA CONTROL MUTUO
-        let ytPlayerIA = null;
-        let ytPlayerEntrevista = null;
+        // Variables de YouTube API
+        let playerIA = null;
+        let playerEntrevista = null;
+        let isYouTubeApiReady = false;
 
-        // BUCLE INFINITO JS CARRUSEL
+        // Bucle Infinito
         let scrollPos = 0;
         let isDragging = false;
         let startX = 0;
         let animationFrameId = null;
 
-        // INICIALIZACIÓN
+        function onYouTubeIframeAPIReady() {
+            isYouTubeApiReady = true;
+        }
+
         document.addEventListener('DOMContentLoaded', async () => {
-            await cargarAutoloadJSON();
+            await intentarCargaAutoloadJSON();
             renderizarAplicacion();
             iniciarCarruselLoop();
         });
 
-        // 1. CARGA DINÁMICA DE AUTOLOAD.JSON
-        async function cargarAutoloadJSON() {
+        async function intentarCargaAutoloadJSON() {
             try {
-                const res = await fetch('./autoload.json');
-                if (res.ok) {
-                    const data = await res.json();
+                const response = await fetch('./autoload.json');
+                if (response.ok) {
+                    const data = await response.json();
                     currentData = data;
-                    console.log('Fichero autoload.json cargado con éxito.');
                 }
             } catch (err) {
-                console.log('Usando datos locales por defecto.');
+                console.log('Usando datos por defecto.');
             }
         }
 
         function cargarJsonManual(event) {
             const file = event.target.files[0];
             if (!file) return;
-
             const reader = new FileReader();
             reader.onload = function(e) {
                 try {
-                    const json = JSON.parse(e.target.result);
-                    currentData = json;
+                    currentData = JSON.parse(e.target.result);
                     renderizarAplicacion();
-                    alert('Fichero JSON cargado correctamente.');
+                    alert('Datos cargados correctamente.');
                 } catch (err) {
-                    alert('Error: Formato JSON no válido.');
+                    alert('Error: JSON no válido.');
                 }
             };
             reader.readAsText(file);
         }
 
-        // RENDERIZADO GLOBAL DE LA APLICACIÓN
         function renderizarAplicacion() {
             renderizarCarrusel();
             renderizarProyecto();
@@ -476,27 +442,23 @@
             configurarAudio();
         }
 
-        // FALLBACK SVG PARA IMÁGENES ROTAS
-        function generarSVGFallback(texto) {
+        function generarSVGFallback(nombre) {
             const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1200" viewBox="0 0 800 1200">
                 <rect width="800" height="1200" fill="#141414"/>
                 <circle cx="400" cy="500" r="250" fill="#8B0000" opacity="0.3"/>
-                <text x="50%" y="50%" fill="#D4AF37" font-family="serif" font-size="44" text-anchor="middle" dominant-baseline="middle">${texto}</text>
+                <text x="50%" y="50%" fill="#D4AF37" font-family="serif" font-size="48" text-anchor="middle">${nombre}</text>
             </svg>`;
             return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
         }
 
-        // 2. GALERÍA DE ARTISTAS: CARRUSEL CONTINUO INFINITO Y ARRASTRABLE
         function renderizarCarrusel() {
             const track = document.getElementById('carousel-track');
             track.innerHTML = '';
-
             const bailaores = currentData.bailaores || [];
             if (bailaores.length === 0) return;
 
             const items = [...bailaores, ...bailaores, ...bailaores];
-
-            items.forEach((artista) => {
+            items.forEach(artista => {
                 const card = document.createElement('div');
                 card.className = 'artist-card relative flex-shrink-0 w-[280px] sm:w-[360px] h-[65vh] rounded-2xl overflow-hidden cursor-pointer border border-flamenco-border group transition-all duration-300';
                 card.onclick = () => abrirPanelArtista(artista);
@@ -511,20 +473,16 @@
                 `;
                 track.appendChild(card);
             });
-
             configurarEventosDrag();
         }
 
         function iniciarCarruselLoop() {
             const track = document.getElementById('carousel-track');
-            
             function animate() {
                 if (!isDragging) {
                     scrollPos -= 0.8;
                     const maxScroll = track.scrollWidth / 3;
-                    if (Math.abs(scrollPos) >= maxScroll) {
-                        scrollPos = 0;
-                    }
+                    if (Math.abs(scrollPos) >= maxScroll) scrollPos = 0;
                     track.style.transform = `translateX(${scrollPos}px)`;
                 }
                 animationFrameId = requestAnimationFrame(animate);
@@ -537,14 +495,9 @@
             const viewport = document.getElementById('carousel-viewport');
             const track = document.getElementById('carousel-track');
 
-            viewport.addEventListener('mousedown', (e) => {
-                isDragging = true;
-                startX = e.pageX - scrollPos;
-            });
-
+            viewport.addEventListener('mousedown', (e) => { isDragging = true; startX = e.pageX - scrollPos; });
             viewport.addEventListener('mouseleave', () => { isDragging = false; });
             viewport.addEventListener('mouseup', () => { isDragging = false; });
-
             viewport.addEventListener('mousemove', (e) => {
                 if (!isDragging) return;
                 e.preventDefault();
@@ -553,14 +506,13 @@
             });
         }
 
-        // EXTRAER ID DE YOUTUBE DESDE EMBED O URL ESTÁNDAR
-        function extraerYouTubeId(url) {
-            if (!url) return '';
-            const match = url.match(/(?:embed\/|v=|v\/|vi\/|youtu\.be\/|\/v\/)([^#&?]*)/);
-            return (match && match[1]) ? match[1] : url;
+        function extraerVideoId(urlOrId) {
+            if (!urlOrId) return 'JU5ME6Q5xRU';
+            if (urlOrId.includes('embed/')) return urlOrId.split('embed/')[1].split('?')[0];
+            if (urlOrId.includes('watch?v=')) return urlOrId.split('watch?v=')[1].split('&')[0];
+            return urlOrId;
         }
 
-        // 3. APERTURA DEL PANEL CON MANTENIMIENTO DE ASPECT RATIO Y CONTROL EXCLUSIVO MUTUO
         function abrirPanelArtista(artista) {
             const panel = document.getElementById('panel-artista');
             panel.classList.remove('hidden');
@@ -568,65 +520,30 @@
             document.getElementById('panel-nombre').innerText = artista.nombre;
             document.getElementById('panel-rol').innerText = artista.rol || '';
             document.getElementById('panel-descripcion').innerText = artista.descripcion || '';
+            document.getElementById('panel-foto-artista').src = artista.imagen;
 
-            // Cargar imagen en B/N para viewports lg:
-            const imgLg = document.getElementById('panel-artista-img-lg');
-            imgLg.src = artista.imagen;
-            imgLg.onerror = function() { this.src = generarSVGFallback(artista.nombre); };
+            const idIA = extraerVideoId(artista.iaVideo);
+            const idEntrevista = extraerVideoId(artista.entrevista);
 
-            const idIA = extraerYouTubeId(artista.iaVideo);
-            const idEntrevista = extraerYouTubeId(artista.entrevista);
+            if (playerIA) playerIA.destroy();
+            if (playerEntrevista) playerEntrevista.destroy();
 
-            // Destruir reproductores anteriores si existen
-            if (ytPlayerIA) { try { ytPlayerIA.destroy(); } catch(e){} ytPlayerIA = null; }
-            if (ytPlayerEntrevista) { try { ytPlayerEntrevista.destroy(); } catch(e){} ytPlayerEntrevista = null; }
-
-            // Recrear contenedores para la API de YouTube
-            document.getElementById('player-ia-container').innerHTML = '<div id="yt-ia-element" class="w-full h-full"></div>';
-            document.getElementById('player-entrevista-container').innerHTML = '<div id="yt-entrevista-element" class="w-full h-full"></div>';
-
-            // Crear Reproductor IA (Vertical 9:16)
-            ytPlayerIA = new YT.Player('yt-ia-element', {
-                height: '100%',
-                width: '100%',
+            playerIA = new YT.Player('player-ia', {
                 videoId: idIA,
                 playerVars: { 'autoplay': 1, 'enablejsapi': 1, 'rel': 0 },
-                events: {
-                    'onStateChange': (e) => {
-                        // Si el vídeo IA se reproduce, pausar la entrevista
-                        if (e.data === YT.PlayerState.PLAYING) {
-                            if (ytPlayerEntrevista && typeof ytPlayerEntrevista.pauseVideo === 'function') {
-                                ytPlayerEntrevista.pauseVideo();
-                            }
-                        }
-                    }
-                }
+                events: { 'onStateChange': (e) => manejarCambioEstadoVideo(e, 'IA') }
             });
 
-            // Crear Reproductor Entrevista (Horizontal 16:9)
-            ytPlayerEntrevista = new YT.Player('yt-entrevista-element', {
-                height: '100%',
-                width: '100%',
+            playerEntrevista = new YT.Player('player-entrevista', {
                 videoId: idEntrevista,
-                playerVars: { 'autoplay': 0, 'enablejsapi': 1, 'rel': 0 },
-                events: {
-                    'onStateChange': (e) => {
-                        // Si el vídeo Entrevista se reproduce, pausar el vídeo IA
-                        if (e.data === YT.PlayerState.PLAYING) {
-                            if (ytPlayerIA && typeof ytPlayerIA.pauseVideo === 'function') {
-                                ytPlayerIA.pauseVideo();
-                            }
-                        }
-                    }
-                }
+                playerVars: { 'enablejsapi': 1, 'rel': 0 },
+                events: { 'onStateChange': (e) => manejarCambioEstadoVideo(e, 'ENTREVISTA') }
             });
 
-            // Bento Grid de Noticias
+            // Render Noticia Bento Cards
             const bentoContainer = document.getElementById('bento-noticias');
             bentoContainer.innerHTML = '';
-
-            const noticias = artista.noticias || [];
-            noticias.forEach(item => {
+            (artista.noticias || []).forEach(item => {
                 const card = document.createElement('a');
                 card.href = item.url || '#';
                 card.target = "_blank";
@@ -639,9 +556,7 @@
                         <span class="text-flamenco-gold text-xs font-cinzel">${item.medio || 'Medio'} · ${item.fecha || ''}</span>
                         <h4 class="font-cinzel text-white text-base font-bold mt-1">${item.titulo}</h4>
                     </div>
-                    <div class="mt-4 flex justify-end text-flamenco-gold">
-                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                    </div>
+                    <div class="mt-4 flex justify-end text-flamenco-gold"><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
                 `;
                 bentoContainer.appendChild(card);
             });
@@ -649,23 +564,58 @@
             panel.scrollIntoView({ behavior: 'smooth' });
         }
 
-        function cerrarPanelArtista() {
-            const panel = document.getElementById('panel-artista');
-            panel.classList.add('hidden');
-            if (ytPlayerIA) { try { ytPlayerIA.destroy(); } catch(e){} ytPlayerIA = null; }
-            if (ytPlayerEntrevista) { try { ytPlayerEntrevista.destroy(); } catch(e){} ytPlayerEntrevista = null; }
+        // CONTROL DE REPRODUCCIÓN MUTUA ENTRE VÍDEOS Y MÚSICA DE FONDO
+        function manejarCambioEstadoVideo(event, tipo) {
+            if (event.data === YT.PlayerState.PLAYING) {
+                // Si la música de fondo estaba encendida, se pausa y se recuerda la preferencia
+                if (isAudioPlaying) {
+                    musicaPreviamenteActivada = true;
+                    pausarAudioAmbiental();
+                }
+
+                // Mutua exclusividad entre reproductores de YouTube
+                if (tipo === 'IA' && playerEntrevista && typeof playerEntrevista.pauseVideo === 'function') {
+                    playerEntrevista.pauseVideo();
+                } else if (tipo === 'ENTREVISTA' && playerIA && typeof playerIA.pauseVideo === 'function') {
+                    playerIA.pauseVideo();
+                }
+            } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
+                // Verificar si ambos vídeos están pausados o terminados
+                comprobarYRestablecerMusicaFondo();
+            }
         }
 
-        // 4. RENDERIZAR SECCIÓN PROYECTO
+        function comprobarYRestablecerMusicaFondo() {
+            const stateIA = playerIA && typeof playerIA.getPlayerState === 'function' ? playerIA.getPlayerState() : -1;
+            const stateEntrevista = playerEntrevista && typeof playerEntrevista.getPlayerState === 'function' ? playerEntrevista.getPlayerState() : -1;
+
+            const ningunVideoSonando = (stateIA !== YT.PlayerState.PLAYING) && (stateEntrevista !== YT.PlayerState.PLAYING);
+
+            if (ningunVideoSonando && musicaPreviamenteActivada) {
+                reproducirAudioAmbiental();
+                musicaPreviamenteActivada = false;
+            }
+        }
+
+        function cerrarPanelArtista() {
+            if (playerIA && typeof playerIA.stopVideo === 'function') playerIA.stopVideo();
+            if (playerEntrevista && typeof playerEntrevista.stopVideo === 'function') playerEntrevista.stopVideo();
+
+            document.getElementById('panel-artista').classList.add('hidden');
+
+            // Restablecer música de fondo si estaba activada previamente
+            if (musicaPreviamenteActivada) {
+                reproducirAudioAmbiental();
+                musicaPreviamenteActivada = false;
+            }
+        }
+
         function renderizarProyecto() {
             const proy = currentData.proyecto || {};
             document.getElementById('proyecto-descripcion').innerText = proy.descripcion || '';
-
             const bento = document.getElementById('proyecto-recursos-bento');
             bento.innerHTML = '';
-
-            const recursos = proy.recursos || [];
-            recursos.forEach(rec => {
+            (proy.recursos || []).forEach(rec => {
                 const card = document.createElement('a');
                 card.href = rec.url || '#';
                 card.target = "_blank";
@@ -687,7 +637,6 @@
             });
         }
 
-        // 5. RENDERIZAR SECCIÓN AUTOR
         function renderizarAutor() {
             const aut = currentData.autor || {};
             document.getElementById('autor-nombre').innerText = aut.nombre || 'Marco González Cadillo';
@@ -697,9 +646,7 @@
 
             const linksContainer = document.getElementById('autor-links');
             linksContainer.innerHTML = '';
-
-            const recursos = aut.recursos || [];
-            recursos.forEach(rec => {
+            (aut.recursos || []).forEach(rec => {
                 const btn = document.createElement('a');
                 btn.href = rec.url;
                 btn.target = "_blank";
@@ -709,37 +656,40 @@
             });
         }
 
-        // 6. CONTROL DEL AUDIO AMBIENTAL
+        // FUNCIONES DE CONTROL DE AUDIO AMBIENTAL
         function configurarAudio() {
             const audioElem = document.getElementById('audio-ambiente');
             const sonidoUrl = currentData.configuracion?.sonido || '';
-            if (sonidoUrl) {
-                audioElem.src = sonidoUrl;
+            if (sonidoUrl) audioElem.src = sonidoUrl;
+        }
+
+        function toggleAudioUsuario() {
+            if (!isAudioPlaying) {
+                musicaPreviamenteActivada = true;
+                reproducirAudioAmbiental();
+            } else {
+                musicaPreviamenteActivada = false;
+                pausarAudioAmbiental();
             }
         }
 
-        function toggleAudio() {
+        function reproducirAudioAmbiental() {
             const audioElem = document.getElementById('audio-ambiente');
-            const eqIcon = document.getElementById('eq-icon');
-            const staticIcon = document.getElementById('audio-icon-static');
-            const statusText = document.getElementById('audio-status-text');
+            audioElem.play().then(() => {
+                isAudioPlaying = true;
+                document.getElementById('eq-icon').classList.remove('hidden');
+                document.getElementById('audio-icon-static').classList.add('hidden');
+                document.getElementById('audio-status-text').innerText = "Música: ON";
+            }).catch(() => {});
+        }
 
-            if (!isAudioPlaying) {
-                audioElem.play().then(() => {
-                    isAudioPlaying = true;
-                    eqIcon.classList.remove('hidden');
-                    staticIcon.classList.add('hidden');
-                    statusText.innerText = "Música: ON";
-                }).catch(() => {
-                    alert('Por favor interactúe con la página antes de activar la música.');
-                });
-            } else {
-                audioElem.pause();
-                isAudioPlaying = false;
-                eqIcon.classList.add('hidden');
-                staticIcon.classList.remove('hidden');
-                statusText.innerText = "Música: OFF";
-            }
+        function pausarAudioAmbiental() {
+            const audioElem = document.getElementById('audio-ambiente');
+            audioElem.pause();
+            isAudioPlaying = false;
+            document.getElementById('eq-icon').classList.add('hidden');
+            document.getElementById('audio-icon-static').classList.remove('hidden');
+            document.getElementById('audio-status-text').innerText = "Música: OFF";
         }
     </script>
 </body>
